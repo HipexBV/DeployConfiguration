@@ -58,7 +58,9 @@ $testStage->addServer('production205');
  */
 $configuration->addAfterDeployCommand(new Command\NewRelic());
 $configuration->addAfterDeployCommand(new Command\EmailNotification());
-$configuration->addAfterDeployCommand(new Command\SlackWebhook('https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'));
+$configuration->addAfterDeployCommand(new Command\SlackWebhook(
+    'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
+));
 
 
 
@@ -67,7 +69,8 @@ $configuration->addAfterDeployCommand(new Command\SlackWebhook('https://hooks.sl
  * Running a Magento 1 deploy with frontend build
  */
 $configuration->addFrontend(new Frontend(['yarn install', 'yarn build'], 'skin/frontend/package/theme'));
-$configuration->addDeployCommand((new DeployCommand('magerun sys:setup:run'))->setServerRoles([ServerRole::APPLICATION_FIRST]));
+$setupRun = (new DeployCommand('magerun sys:setup:run'))->setServerRoles([ServerRole::APPLICATION_FIRST]);
+$configuration->addDeployCommand($setupRun);
 
 
 
@@ -77,7 +80,8 @@ $configuration->addDeployCommand((new DeployCommand('magerun sys:setup:run'))->s
  */
 $configuration->addBuildCommand(new Command('{{phpbin}} bin/magento setup:di:compile'));
 $configuration->addBuildCommand(new Command('{{phpbin}} bin/magento setup:static-content:deploy'));
-$configuration->addDeployCommand((new DeployCommand('{{phpbin}} setup:upgrade'))->setServerRoles([ServerRole::APPLICATION_FIRST]));
+$setupRun = (new DeployCommand('{{phpbin}} setup:upgrade'))->setServerRoles([ServerRole::APPLICATION_FIRST]);
+$configuration->addDeployCommand($setupRun);
 
 
 
