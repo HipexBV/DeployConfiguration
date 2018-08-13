@@ -6,6 +6,9 @@
 
 namespace HipexDeployConfiguration;
 
+/**
+ * Contains information per deploy server.
+ */
 class Server
 {
     /**
@@ -14,20 +17,20 @@ class Server
     private $hostname;
 
     /**
-     * @var string
+     * @var string[]
      */
-    private $role;
+    private $roles;
 
     /**
      * Server constructor.
      *
      * @param string $hostname
-     * @param string|null $role
+     * @param string[] $roles
      */
-    public function __construct(string $hostname, string $role = null)
+    public function __construct(string $hostname, array $roles = null)
     {
         $this->hostname = $hostname;
-        $this->role = $role;
+        $this->roles = $roles ?: ServerRole::getValues();
     }
 
     /**
@@ -39,10 +42,10 @@ class Server
     }
 
     /**
-     * @return string
+     * @return string[]
      */
-    public function getRole(): string
+    public function getRoles(): array
     {
-        return $this->role;
+        return $this->roles;
     }
 }

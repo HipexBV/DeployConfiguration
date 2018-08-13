@@ -8,9 +8,13 @@ namespace HipexDeployConfiguration;
 
 class ServerRole
 {
-    public const APP = 'app';
-    public const BUILD = 'build';
+    /**
+     * Available server roles
+     */
+    public const APPLICATION = 'application';
     public const LOAD_BALANCER = 'load_balancer';
+    public const REDIS = 'redis';
+    public const VARNISH = 'varnish';
     public const DATABASE = 'database';
 
     /**
@@ -19,9 +23,10 @@ class ServerRole
     public static function getValues(): array
     {
         return [
-            self::APP,
-            self::BUILD,
+            self::APPLICATION,
             self::LOAD_BALANCER,
+            self::REDIS,
+            self::VARNISH,
             self::DATABASE,
         ];
     }

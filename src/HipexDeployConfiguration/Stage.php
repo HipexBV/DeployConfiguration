@@ -9,11 +9,22 @@ namespace HipexDeployConfiguration;
 class Stage
 {
     /**
+     * Domain name for this stage.
+     *
      * @var string
      */
     private $domain;
 
     /**
+     * SSH User
+     *
+     * @var string
+     */
+    private $username;
+
+    /**
+     * Servers in the stage that the project will be deployed to.
+     *
      * @var Server[]
      */
     private $servers = [];
@@ -22,21 +33,47 @@ class Stage
      * Stage constructor.
      *
      * @param string $domain
+     * @param string $username
      */
-    public function __construct(string $domain)
+    public function __construct(string $domain, string $username)
     {
         $this->domain = $domain;
+        $this->username = $username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDomain(): string
+    {
+        return $this->domain;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->username;
     }
 
     /**
      * @param string $hostname
-     * @param string $role
-     * @return $this
+     * @param array $roles
+     * @return Server
      */
-    public function addServer(string $hostname, string $role): Server
+    public function addServer(string $hostname, array $roles = null): Server
     {
-        $server = new Server($hostname, $role);
+        $server = new Server($hostname, $roles);
         $this->servers[] = $server;
         return $server;
+    }
+
+    /**
+     * @return Server[]
+     */
+    public function getServers(): array
+    {
+        return $this->servers;
     }
 }
