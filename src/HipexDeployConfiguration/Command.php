@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Hipex <info@hipex.io>
- * @copyright (c) Hipex B.V. ${year}
+ * @copyright (c) Hipex B.V. 2018
  */
 
 namespace HipexDeployConfiguration;
@@ -33,7 +33,7 @@ class Command
      *
      * @param string $command
      */
-    public function __construct(string $command)
+    public function __construct(string $command = null)
     {
         $this->command = $command;
     }
@@ -41,7 +41,7 @@ class Command
     /**
      * @return string
      */
-    public function getCommand(): string
+    public function getCommand(): ?string
     {
         return $this->command;
     }

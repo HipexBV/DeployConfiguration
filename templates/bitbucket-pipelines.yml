@@ -1,0 +1,16 @@
+image: hipex/deploy
+
+pipelines:
+  branches:
+      # Deploy to test configuration
+      # If you are only deploying to production remove this configuration
+      test:
+        - step:
+          script:
+            - hipex-deploy test
+
+      # Deploy to production
+      master:
+        - step:
+          script:
+            - hipex-deploy production

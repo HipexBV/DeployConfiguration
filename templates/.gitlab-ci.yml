@@ -1,0 +1,16 @@
+image: hipex/deploy
+
+# Deploy to test configuration
+# If you are only deploying to production remove this configuration
+deploy_test:
+    only:
+        - test
+    script:
+        - hipex-deploy test
+
+# Deploy to production
+deploy_production:
+    only:
+        - master
+    script:
+        - hipex-deploy production

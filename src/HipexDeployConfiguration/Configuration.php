@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Hipex <info@hipex.io>
- * @copyright (c) Hipex B.V. ${year}
+ * @copyright (c) Hipex B.V. 2018
  */
 
 namespace HipexDeployConfiguration;
@@ -53,9 +53,9 @@ class Configuration
     /**
      * Frontend build configuration
      *
-     * @var Frontend
+     * @var Frontend[]
      */
-    private $frontend;
+    private $frontends = [];
 
     /**
      *
@@ -195,20 +195,33 @@ class Configuration
     }
 
     /**
-     * @return Frontend
+     * @return Frontend[]
      */
-    public function getFrontend(): Frontend
+    public function getFrontends(): array
     {
-        return $this->frontend;
+        return $this->frontends;
+    }
+
+    /**
+     * @param Frontend[] $frontends
+     * @return $this
+     */
+    public function setFrontends(array $frontends): self
+    {
+        $this->frontends = [];
+        foreach ($frontends as $frontend) {
+            $this->addFrontend($frontend);
+        }
+        return $this;
     }
 
     /**
      * @param Frontend $frontend
      * @return $this
      */
-    public function setFrontend(Frontend $frontend): self
+    public function addFrontend(Frontend $frontend): self
     {
-        $this->frontend = $frontend;
+        $this->frontends[] = $frontend;
         return $this;
     }
 
@@ -288,7 +301,7 @@ class Configuration
     }
 
     /**
-     * @param Command $command
+     * @param DeployCommand $command
      * @return $this
      */
     public function addDeployCommand(DeployCommand $command): self
