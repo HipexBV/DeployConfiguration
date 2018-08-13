@@ -1,0 +1,11 @@
+{
+    "name": "hipex/deploy-configuration",
+    "license": "OSL-3.0",
+    "description": "Hipex deploy image configuration files",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "HipexDeployConfiguration\\": "./src"
+        }
+    }
+}
