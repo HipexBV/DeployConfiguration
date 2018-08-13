@@ -5,7 +5,7 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "HipexDeployConfiguration\\": "./src"
+            "HipexDeployConfiguration\\": "src/"
         }
     }
 }
