@@ -66,17 +66,34 @@ $configuration->addAfterDeployCommand(new Command\SlackWebhook(
 
 
 /**
- * Running a Magento 1 deploy with frontend build
+ * Running a Magento 1 deploy with frontend build and setting up shared files / folders
+ *
+ * @see deploy.magento1.php for Magento 1 specific template with default configurations set
  */
 $configuration->addFrontend(new Frontend(['yarn install', 'yarn build'], 'skin/frontend/package/theme'));
 $setupRun = (new DeployCommand('magerun sys:setup:run'))->setServerRoles([ServerRole::APPLICATION_FIRST]);
 $configuration->addDeployCommand($setupRun);
+
+// Files shared between deploys
+$configuration->setSharedFiles([
+    'app/etc/local.xml',
+    'errors/local.xml',
+]);
+
+// Directories shared between deploys
+$configuration->setSharedFolders([
+    'var',
+    'media',
+    'sitemap',
+]);
 
 
 
 
 /**
  * A simple Magento 2 build
+ *
+ * @see deploy.magento2.php for Magento 2 specific template with default magento 2 configurations set.
  */
 $configuration->addBuildCommand(new Command('{{phpbin}} bin/magento setup:di:compile'));
 $configuration->addBuildCommand(new Command('{{phpbin}} bin/magento setup:static-content:deploy'));
