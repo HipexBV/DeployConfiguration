@@ -89,6 +89,11 @@ class Configuration
     private $afterDeployCommands = [];
 
     /**
+     * @var string[]
+     */
+    private $environmentVariables = [];
+
+    /**
      * ServerConfiguration constructor.
      *
      * @param string $gitRepository
@@ -320,6 +325,37 @@ class Configuration
     public function addAfterDeployCommand(Command $command): self
     {
         $this->afterDeployCommands[] = $command;
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getEnvironmentVariables(): array
+    {
+        return $this->environmentVariables;
+    }
+
+    /**
+     * @param string[] $environmentVariables
+     * @return $this
+     */
+    public function setEnvironmentVariables(array $environmentVariables): self
+    {
+        $this->environmentVariables = [];
+        foreach ($environmentVariables as $variable) {
+            $this->addEnvironmentVariable($variable);
+        }
+        return $this;
+    }
+
+    /**
+     * @param string $variable
+     * @return $this
+     */
+    public function addEnvironmentVariable(string $variable): self
+    {
+        $this->environmentVariables[] = $variable;
         return $this;
     }
 }
