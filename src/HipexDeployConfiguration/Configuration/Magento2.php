@@ -6,6 +6,7 @@
 
 namespace HipexDeployConfiguration\Configuration;
 
+use HipexDeployConfiguration\Command\Build\Magento2\SetupStaticContentDeploy;
 use HipexDeployConfiguration\Configuration;
 use HipexDeployConfiguration\Command;
 use HipexDeployConfiguration\DeployCommand;
@@ -14,49 +15,33 @@ use HipexDeployConfiguration\ServerRole;
 class Magento2 extends Configuration
 {
     /**
-     * Argument defaults
-     */
-    public const DEFAULT_LOCALES = ['en_US', 'nl_NL'];
-
-    /**
-     * @var array|string[]
-     */
-    private $locales;
-
-    /**
      * Magento2 constructor.
      *
      * @param string $gitRepository
      * @param string[] $locales
      */
-    public function __construct(string $gitRepository, array $locales = self::DEFAULT_LOCALES)
+    public function __construct(string $gitRepository, array $locales = SetupStaticContentDeploy::DEFAULT_LOCALES)
     {
         parent::__construct($gitRepository);
 
-        $this->initializeDefaultConfiguration();
-        $this->locales = $locales;
-    }
-
-    /**
-     * @return array|string[]
-     */
-    public function getLocales(): array
-    {
-        return $this->locales;
+        $this->initializeDefaultConfiguration($locales);
     }
 
     /**
      * Initialize defaults
+     *
+     * @param string[] $locales
      */
-    private function initializeDefaultConfiguration(): void
+    private function initializeDefaultConfiguration(array $locales): void
     {
         $this->addBuildCommand(new Command\Build\Composer());
-        $this->addBuildCommand(new Command('{{bin/php}} bin/magento deploy:mode:set production --skip-compilation'));
-        $this->addBuildCommand(new Command('{{bin/php}} bin/magento setup:di:compile'));
-        $this->addBuildCommand(new Command('{{bin/php}} bin/magento setup:static-content:deploy --force {{magento2/locales}}'));
+        $this->addBuildCommand(new Command\Build\Magento2\DeployModeSet());
+        $this->addBuildCommand(new Command\Build\Magento2\SetupDiCompile());
+        $this->addBuildCommand(new Command\Build\Magento2\SetupStaticContentDeploy($locales));
 
-        $this->addDeployCommand((new DeployCommand('{{bin/php}} bin/magento setup:upgrade --keep-generated'))->setServerRoles([ServerRole::APPLICATION_FIRST]));
-        $this->addDeployCommand((new DeployCommand('{{bin/php}} bin/magento cache:flush'))->setServerRoles([ServerRole::APPLICATION_FIRST]));
+        $this->addDeployCommand(new Command\Deploy\Magento2\MaintenanceMode());
+        $this->addDeployCommand(new Command\Deploy\Magento2\SetupUpgrade());
+        $this->addDeployCommand(new Command\Deploy\Magento2\CacheFlush());
 
         $this->setSharedFiles([
             'app/etc/env.php.xml',

@@ -11,7 +11,7 @@ class Command
     /**
      * Command to execute.
      *
-     * @var string
+     * @var string|callable
      */
     private $command;
 
@@ -31,17 +31,17 @@ class Command
     /**
      * DeployCommand constructor.
      *
-     * @param string $command
+     * @param string|callable $command
      */
-    public function __construct(string $command = null)
+    public function __construct($command = null)
     {
         $this->command = $command;
     }
 
     /**
-     * @return string
+     * @return string|callable
      */
-    public function getCommand(): ?string
+    public function getCommand()
     {
         return $this->command;
     }
