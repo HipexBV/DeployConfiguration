@@ -112,8 +112,8 @@ class Configuration
      */
     public function addStage(string $name, string $domain, string $username): Stage
     {
-        $stage = new Stage($domain, $username);
-        $this->stages[$name] = $stage;
+        $stage = new Stage($name, $domain, $username);
+        $this->stages[] = $stage;
         return $stage;
     }
 

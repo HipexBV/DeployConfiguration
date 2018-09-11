@@ -30,15 +30,22 @@ class Stage
     private $servers = [];
 
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
      * Stage constructor.
      *
+     * @param string $name
      * @param string $domain
      * @param string $username
      */
-    public function __construct(string $domain, string $username)
+    public function __construct(string $name, string $domain, string $username)
     {
         $this->domain = $domain;
         $this->username = $username;
+        $this->name = $name;
     }
 
     /**
@@ -75,5 +82,13 @@ class Stage
     public function getServers(): array
     {
         return $this->servers;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 }
