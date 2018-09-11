@@ -9,8 +9,6 @@ namespace HipexDeployConfiguration\Configuration;
 use HipexDeployConfiguration\Command\Build\Magento2\SetupStaticContentDeploy;
 use HipexDeployConfiguration\Configuration;
 use HipexDeployConfiguration\Command;
-use HipexDeployConfiguration\DeployCommand;
-use HipexDeployConfiguration\ServerRole;
 
 class Magento2 extends Configuration
 {
