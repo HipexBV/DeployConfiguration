@@ -33,7 +33,6 @@ class Magento2 extends Configuration
     private function initializeDefaultConfiguration(array $locales): void
     {
         $this->addBuildCommand(new Command\Build\Composer());
-        $this->addBuildCommand(new Command\Build\Magento2\DeployModeSet());
         $this->addBuildCommand(new Command\Build\Magento2\SetupDiCompile());
 
         $this->addDeployCommand(new Command\Build\Magento2\SetupStaticContentDeploy($locales));

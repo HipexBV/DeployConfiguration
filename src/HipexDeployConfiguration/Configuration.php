@@ -51,13 +51,6 @@ class Configuration
     private $sharedFiles = [];
 
     /**
-     * Frontend build configuration
-     *
-     * @var Frontend[]
-     */
-    private $frontends = [];
-
-    /**
      *
      * Add file / directory that will not be deployed. File patterns are added as `tar --exclude=`;
      *
@@ -192,37 +185,6 @@ class Configuration
     public function getSharedFiles(): array
     {
         return $this->sharedFiles;
-    }
-
-    /**
-     * @return Frontend[]
-     */
-    public function getFrontends(): array
-    {
-        return $this->frontends;
-    }
-
-    /**
-     * @param Frontend[] $frontends
-     * @return $this
-     */
-    public function setFrontends(array $frontends): self
-    {
-        $this->frontends = [];
-        foreach ($frontends as $frontend) {
-            $this->addFrontend($frontend);
-        }
-        return $this;
-    }
-
-    /**
-     * @param Frontend $frontend
-     * @return $this
-     */
-    public function addFrontend(Frontend $frontend): self
-    {
-        $this->frontends[] = $frontend;
-        return $this;
     }
 
     /**

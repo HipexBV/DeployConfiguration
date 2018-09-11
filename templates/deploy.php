@@ -70,10 +70,11 @@ $configuration->addAfterDeployCommand(new Command\After\SlackWebhook(
  *
  * @see deploy.magento1.php for Magento 1 specific template with default configurations set
  */
-$configuration->addFrontend(new Frontend(['yarn install', 'yarn build'], 'skin/frontend/package/theme'));
-$configuration->addDeployCommand(
-    (new DeployCommand('magerun sys:setup:run'))->setServerRoles([ServerRole::APPLICATION_FIRST])
-);
+$configuration->addBuildCommand(new Command('cd skin/frontend/package/theme && yarn install'));
+$configuration->addBuildCommand(new Command('cd skin/frontend/package/theme && yarn deploy'));
+
+$configuration->addDeployCommand(new Command\Deploy\Magento1\MagerunSetupRun());
+$configuration->addDeployCommand(new Command\Deploy\Magento1\MagerunCacheFlush());
 
 // Files shared between deploys
 $configuration->setSharedFiles([
@@ -96,11 +97,13 @@ $configuration->setSharedFolders([
  *
  * @see deploy.magento2.php for Magento 2 specific template with default magento 2 configurations set.
  */
-$configuration->addBuildCommand(new Command('{{phpbin}} bin/magento setup:di:compile'));
-$configuration->addBuildCommand(new Command('{{phpbin}} bin/magento setup:static-content:deploy'));
-$configuration->addDeployCommand(
-    (new DeployCommand('{{phpbin}} setup:upgrade'))->setServerRoles([ServerRole::APPLICATION_FIRST])
-);
+$configuration->addBuildCommand(new Command\Build\Composer());
+$configuration->addBuildCommand(new Command\Build\Magento2\SetupDiCompile());
+
+$configuration->addDeployCommand(new Command\Build\Magento2\SetupStaticContentDeploy(['nl_NL', 'en_US']));
+$configuration->addDeployCommand(new Command\Deploy\Magento2\MaintenanceMode());
+$configuration->addDeployCommand(new Command\Deploy\Magento2\SetupUpgrade());
+$configuration->addDeployCommand(new Command\Deploy\Magento2\CacheFlush());
 
 
 
