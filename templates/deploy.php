@@ -56,9 +56,9 @@ $testStage->addServer('production205');
  * Here are some examples. Configuration from these examples is mostly set trough the environment variables. They
  * can also be set using the constructor arguments of the commands.
  */
-$configuration->addAfterDeployCommand(new Command\NewRelic());
-$configuration->addAfterDeployCommand(new Command\EmailNotification());
-$configuration->addAfterDeployCommand(new Command\SlackWebhook(
+$configuration->addAfterDeployCommand(new Command\After\NewRelic());
+$configuration->addAfterDeployCommand(new Command\After\EmailNotification());
+$configuration->addAfterDeployCommand(new Command\After\SlackWebhook(
     'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
 ));
 
@@ -71,8 +71,9 @@ $configuration->addAfterDeployCommand(new Command\SlackWebhook(
  * @see deploy.magento1.php for Magento 1 specific template with default configurations set
  */
 $configuration->addFrontend(new Frontend(['yarn install', 'yarn build'], 'skin/frontend/package/theme'));
-$setupRun = (new DeployCommand('magerun sys:setup:run'))->setServerRoles([ServerRole::APPLICATION_FIRST]);
-$configuration->addDeployCommand($setupRun);
+$configuration->addDeployCommand(
+    (new DeployCommand('magerun sys:setup:run'))->setServerRoles([ServerRole::APPLICATION_FIRST])
+);
 
 // Files shared between deploys
 $configuration->setSharedFiles([
@@ -97,8 +98,9 @@ $configuration->setSharedFolders([
  */
 $configuration->addBuildCommand(new Command('{{phpbin}} bin/magento setup:di:compile'));
 $configuration->addBuildCommand(new Command('{{phpbin}} bin/magento setup:static-content:deploy'));
-$setupRun = (new DeployCommand('{{phpbin}} setup:upgrade'))->setServerRoles([ServerRole::APPLICATION_FIRST]);
-$configuration->addDeployCommand($setupRun);
+$configuration->addDeployCommand(
+    (new DeployCommand('{{phpbin}} setup:upgrade'))->setServerRoles([ServerRole::APPLICATION_FIRST])
+);
 
 
 
