@@ -6,14 +6,15 @@
 
 namespace HipexDeployConfiguration\Command\Build\Magento2;
 
-use HipexDeployConfiguration\Command;
+use HipexDeployConfiguration\DeployCommand;
 
-class SetupStaticContentDeploy extends Command
+class SetupStaticContentDeploy extends DeployCommand
 {
     /**
      * Argument defaults
      */
     public const DEFAULT_LOCALES = ['en_US', 'nl_NL'];
+
     /**
      * @var array
      */
@@ -21,6 +22,8 @@ class SetupStaticContentDeploy extends Command
 
     /**
      * DeployModeSet constructor.
+     *
+     * @param array $locales
      */
     public function __construct(array $locales = self::DEFAULT_LOCALES)
     {

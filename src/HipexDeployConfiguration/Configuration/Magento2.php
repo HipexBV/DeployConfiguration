@@ -35,8 +35,8 @@ class Magento2 extends Configuration
         $this->addBuildCommand(new Command\Build\Composer());
         $this->addBuildCommand(new Command\Build\Magento2\DeployModeSet());
         $this->addBuildCommand(new Command\Build\Magento2\SetupDiCompile());
-        $this->addBuildCommand(new Command\Build\Magento2\SetupStaticContentDeploy($locales));
 
+        $this->addDeployCommand(new Command\Build\Magento2\SetupStaticContentDeploy($locales));
         $this->addDeployCommand(new Command\Deploy\Magento2\MaintenanceMode());
         $this->addDeployCommand(new Command\Deploy\Magento2\SetupUpgrade());
         $this->addDeployCommand(new Command\Deploy\Magento2\CacheFlush());
