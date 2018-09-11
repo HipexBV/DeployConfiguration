@@ -29,9 +29,9 @@ can be overwritten / extended by the projects `deploy.php`.
 3. `build:package` Package code into `tgz` archive
 4. `deploy:prepare` Prepare deployment folders on the server(s)
 5. `deploy:copy` Copy build files to server(s)
-6. `deploy:link` Set symlinks to new version
-7. `deploy:flush-cache` Flush PHP-FPM stat cache and other caches.
-6. `success` Run deployment complete tasks like sending notifications or flushing CloudFlare.
+6. `deploy:migrate` Run database migrations
+7. `deploy:link` Set symlinks to new version
+8. `deploy:after` Flush caches and send notification.
 
 All these steps are regular deployer tasks so the can be extended or even overwritten per project.
 
