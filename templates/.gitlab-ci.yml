@@ -1,16 +1,34 @@
 image: hipex/deploy
 
+stages:
+    - build
+    - deploy
+
+
+build:
+    stage: build
+    only:
+        - test
+        - master
+    script:
+        - hipex-deploy build
+    artifacts:
+        paths:
+            - build/**
+
 # Deploy to test configuration
 # If you are only deploying to production remove this configuration
 deploy_test:
+    stage: deploy
     only:
         - test
     script:
-        - hipex-deploy test
+        - hipex-deploy deploy test
 
 # Deploy to production
 deploy_production:
+    stage: deploy
     only:
         - master
     script:
-        - hipex-deploy production
+        - hipex-deploy deploy production

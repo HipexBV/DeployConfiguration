@@ -2,15 +2,31 @@ image: hipex/deploy
 
 pipelines:
   branches:
-      # Deploy to test configuration
-      # If you are only deploying to production remove this configuration
-      test:
-        - step:
+    # Deploy to test configuration
+    # If you are only deploying to production remove this configuration
+    test:
+      - step:
+          name: build
+          image: hipex/deploy
+          script:
+            - hipex-deploy build
+          artifacts:
+            - build/**
+      - step:
+          name: deploy
           script:
             - hipex-deploy test
 
-      # Deploy to production
-      master:
-        - step:
+    # Deploy to production
+    master:
+      - step:
+          name: build
+          image: hipex/deploy
+          script:
+            - hipex-deploy build
+          artifacts:
+            - build/**
+      - step:
+          name: deploy
           script:
             - hipex-deploy production
