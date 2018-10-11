@@ -27,13 +27,13 @@ file.
 
 ## Build steps
 1. `build:update` Checkout the code and run composer installer
-2. `build:compile` Run frontend build and compilation tasks
+2. `build:compile` Run frontend build and compilation tasks and other `Configuration::getBuildCommands` commands
 3. `build:package` Package code into `tgz` archive
 4. `deploy:prepare_release` Prepare deployment folders on the server(s)
 5. `deploy:copy` Copy build files to server(s)
-6. `deploy:migrate` Run database migrations
+6. `deploy:migrate` Run database migrations and other `Configuration::getDeployCommands` commands
 7. `deploy:link` Set symlinks to new version
-8. `deploy:after` Flush caches and send notification.
+8. `deploy:after` Flush caches and send notification and other `Configuration::getAfterDeployCommands` commands
 
 All these steps are regular deployer tasks so the can be extended or even overwritten per project.
 
