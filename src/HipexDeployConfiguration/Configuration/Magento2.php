@@ -41,7 +41,7 @@ class Magento2 extends Configuration
         $this->addDeployCommand(new Command\Deploy\Magento2\CacheFlush());
 
         $this->setSharedFiles([
-            'app/etc/env.php.xml',
+            'app/etc/env.php',
             'pub/errors/local.xml',
         ]);
 
