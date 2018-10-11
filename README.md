@@ -29,7 +29,7 @@ file.
 1. `build:update` Checkout the code and run composer installer
 2. `build:compile` Run frontend build and compilation tasks
 3. `build:package` Package code into `tgz` archive
-4. `deploy:prepare` Prepare deployment folders on the server(s)
+4. `deploy:prepare_release` Prepare deployment folders on the server(s)
 5. `deploy:copy` Copy build files to server(s)
 6. `deploy:migrate` Run database migrations
 7. `deploy:link` Set symlinks to new version

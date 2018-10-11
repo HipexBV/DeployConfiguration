@@ -49,7 +49,7 @@ class Command
     /**
      * @return string
      */
-    public function getWorkingDirectory(): string
+    public function getWorkingDirectory(): ?string
     {
         return $this->workingDirectory;
     }
@@ -65,7 +65,7 @@ class Command
     /**
      * @return string
      */
-    public function getStage(): string
+    public function getStage(): ?string
     {
         return $this->stage;
     }

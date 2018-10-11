@@ -211,6 +211,14 @@ class Configuration
     }
 
     /**
+     * @return string[]
+     */
+    public function getDeployExclude(): array
+    {
+        return $this->deployExclude;
+    }
+
+    /**
      * @return Command[]
      */
     public function getBuildCommands(): array
