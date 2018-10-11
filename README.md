@@ -39,8 +39,7 @@ All these steps are regular deployer tasks so the can be extended or even overwr
 
 ## Required environment variables
 Some specific environment variables are required to allow the deploy image access to the git repository
-or to be able to send out notifications. These variables can be set as environment variables in CI (recommended)
-or using the `Configuration::addEnvironmentVariable()` method.
+or to be able to send out notifications.
 
 ### Required
 - `SSH_PRIVATE_KEY` Unencrypted SSH key. The key needs to have access to: main git repository, private packages
@@ -54,7 +53,7 @@ Email notifications
 - `NOTIFICATION_EMAIL_TO` Comma separated list of email address to send notification to
 - `NOTIFICATION_EMAIL_FROM`
 
-UNewRelic deploy mark (https://deployer.org/recipes/newrelic)
+NewRelic deploy mark (https://deployer.org/recipes/newrelic)
 - `NEWRELIC_APP_ID`
 - `NEWRELIC_API_KEY`
 
