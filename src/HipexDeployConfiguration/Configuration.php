@@ -12,10 +12,13 @@ class Configuration
      * Default deploy excluded files
      */
     private const DEFAULT_DEPLOY_EXCLUDE = [
-        '/.git',
-        '/deploy.php',
-        '/.gitlab-ci.yml',
+        './.git',
+        './.github',
+        './deploy.php',
+        './.gitlab-ci.yml',
+        './Jenkinsfile',
         '.DS_Store',
+        '.idea',
         '.gitignore',
         '*.scss',
         '*.less',
