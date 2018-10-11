@@ -31,7 +31,7 @@ file.
 3. `build:package` Package code into `tgz` archive
 4. `deploy:prepare_release` Prepare deployment folders on the server(s)
 5. `deploy:copy` Copy build files to server(s)
-6. `deploy:migrate` Run database migrations and other `Configuration::getDeployCommands` commands
+6. `deploy:deploy` Run database migrations and other `Configuration::getDeployCommands` commands
 7. `deploy:link` Set symlinks to new version
 8. `deploy:after` Flush caches and send notification and other `Configuration::getAfterDeployCommands` commands
 
