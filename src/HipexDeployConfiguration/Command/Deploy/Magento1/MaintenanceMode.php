@@ -4,7 +4,7 @@
  * @copyright (c) Hipex B.V. 2018
  */
 
-namespace HipexDeployConfiguration\Command\Deploy\Magento2;
+namespace HipexDeployConfiguration\Command\Deploy\Magento1;
 
 use function Deployer\has;
 use function Deployer\run;
@@ -20,8 +20,8 @@ class MaintenanceMode extends DeployCommand
     public function __construct()
     {
         parent::__construct(function() {
-            if (has('previous_release') && test('[ -f {{previous_release}}/var/.maintenance.flag ]')) {
-                run('touch var/.maintenance.flag');
+            if (has('previous_release') && test('[ -f {{previous_release}}/{{public_folder}}/.maintenance.flag ]')) {
+                run('touch {{public_folder}}/.maintenance.flag');
             }
         });
         $this->setServerRoles([ServerRole::APPLICATION]);
