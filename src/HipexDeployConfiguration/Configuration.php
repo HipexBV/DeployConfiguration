@@ -85,9 +85,9 @@ class Configuration
     private $afterDeployCommands = [];
 
     /**
-     * @var string[]
+     * @var string
      */
-    private $environmentVariables = [];
+    private $phpVersion = 'php72';
 
     /**
      * ServerConfiguration constructor.
@@ -312,5 +312,21 @@ class Configuration
     {
         $this->afterDeployCommands[] = $command;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhpVersion(): string
+    {
+        return $this->phpVersion;
+    }
+
+    /**
+     * @param string $phpVersion
+     */
+    public function setPhpVersion(string $phpVersion): void
+    {
+        $this->phpVersion = $phpVersion;
     }
 }

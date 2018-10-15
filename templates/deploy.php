@@ -15,6 +15,8 @@ namespace HipexDeployConfiguration;
  */
 $configuration = new Configuration('https://github.com/HipexBV/DeployConfiguration.git');
 
+// The default is PHP 7.2 however and does not need to be set.
+$configuration->setPhpVersion('php72');
 
 
 
