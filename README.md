@@ -23,7 +23,9 @@ file.
 [templates/deploy.php](./templates/deploy.php).
 3. Setup your CI server
     1.  GitLab CI [templates/.gitlab-ci.yml](./templates/.gitlab-ci.yml).
-    3.  Bitbucket [templates/bitbucket-pipelines.yml](./templates/bitbucket-pipelines.yml).  
+    3.  Bitbucket [templates/bitbucket-pipelines.yml](./templates/bitbucket-pipelines.yml).
+4. Your first build will fail due to missing configuration. Login to the server and depending on your project file edit
+the `app/etc/env.php` or `app/etc/local.xml`. You will find these files in `~/domains/<domain>/application/shared/`.  
 
 ## Build steps
 1. `build:update` Checkout the code and run composer installer
