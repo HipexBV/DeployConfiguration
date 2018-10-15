@@ -90,6 +90,11 @@ class Configuration
     private $phpVersion = 'php72';
 
     /**
+     * @var string
+     */
+    private $publicFolder = 'pub';
+
+    /**
      * ServerConfiguration constructor.
      *
      * @param string $gitRepository
@@ -328,5 +333,21 @@ class Configuration
     public function setPhpVersion(string $phpVersion): void
     {
         $this->phpVersion = $phpVersion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublicFolder(): string
+    {
+        return $this->publicFolder;
+    }
+
+    /**
+     * @param string $publicFolder
+     */
+    public function setPublicFolder(string $publicFolder): void
+    {
+        $this->publicFolder = $publicFolder;
     }
 }
