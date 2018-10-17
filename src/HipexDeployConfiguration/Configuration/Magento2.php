@@ -30,7 +30,7 @@ class Magento2 extends Configuration
      *
      * @param string[] $locales
      */
-    private function initializeDefaultConfiguration(array $locales): void
+    private function initializeDefaultConfiguration(array $locales = null): void
     {
         $this->setPhpVersion('php71');
         $this->addBuildCommand(new Command\Build\Composer());

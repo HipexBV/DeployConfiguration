@@ -12,18 +12,16 @@ use HipexDeployConfiguration\Command;
 class SetupStaticContentDeploy extends Command
 {
     /**
-     * Argument defaults
-     */
-    public const DEFAULT_LOCALES = ['en_US', 'nl_NL'];
-
-    /**
      * DeployModeSet constructor.
      *
      * @param array $locales
      */
-    public function __construct(array $locales = self::DEFAULT_LOCALES)
+    public function __construct(array $locales = null)
     {
         parent::__construct('{{bin/php}} bin/magento setup:static-content:deploy --force {{magento2/locales}}');
-        set('magento2/locales', implode(' ', $locales));
+
+        set('magento2/locales', function() use ($locales) {
+            return $locales ? implode(' ', $locales) : '';
+        });
     }
 }

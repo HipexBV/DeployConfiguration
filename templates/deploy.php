@@ -101,8 +101,8 @@ $configuration->setSharedFolders([
  */
 $configuration->addBuildCommand(new Command\Build\Composer());
 $configuration->addBuildCommand(new Command\Build\Magento2\SetupDiCompile());
+$configuration->addBuildCommand(new Command\Build\Magento2\SetupStaticContentDeploy());
 
-$configuration->addDeployCommand(new Command\Build\Magento2\SetupStaticContentDeploy(['nl_NL', 'en_US']));
 $configuration->addDeployCommand(new Command\Deploy\Magento2\MaintenanceMode());
 $configuration->addDeployCommand(new Command\Deploy\Magento2\SetupUpgrade());
 $configuration->addDeployCommand(new Command\Deploy\Magento2\CacheFlush());
