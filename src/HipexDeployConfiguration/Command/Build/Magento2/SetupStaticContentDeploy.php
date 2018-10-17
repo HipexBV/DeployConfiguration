@@ -4,12 +4,12 @@
  * @copyright (c) Hipex B.V. 2018
  */
 
-namespace HipexDeployConfiguration\Command\Deploy\Magento2;
+namespace HipexDeployConfiguration\Command\Build\Magento2;
 
 use function Deployer\set;
-use HipexDeployConfiguration\DeployCommand;
+use HipexDeployConfiguration\Command;
 
-class SetupStaticContentDeploy extends DeployCommand
+class SetupStaticContentDeploy extends Command
 {
     /**
      * Argument defaults
