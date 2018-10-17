@@ -13,19 +13,26 @@ class Composer extends Command
     /**
      * Default installation arguments
      */
-    public const DEFAULT_INSTALL_ARGUMENTS = '--verbose --no-progress --no-interaction --optimize-autoloader --no-dev';
+    public const DEFAULT_INSTALL_ARGUMENTS = [
+        '--verbose',
+        '--no-progress',
+        '--no-interaction',
+        '--optimize-autoloader',
+        '--no-dev',
+        '--ignore-platform-reqs',
+    ];
 
     /**
-     * @var string
+     * @var string[]
      */
     private $installArguments;
 
     /**
      * Composer constructor.
      *
-     * @param string $installArguments
+     * @param string[] $installArguments
      */
-    public function __construct(string $installArguments = self::DEFAULT_INSTALL_ARGUMENTS)
+    public function __construct(array $installArguments = self::DEFAULT_INSTALL_ARGUMENTS)
     {
         parent::__construct('{{bin/composer}} install {{composer/install_arguments}}');
 
@@ -33,9 +40,9 @@ class Composer extends Command
     }
 
     /**
-     * @return string
+     * @return string[]
      */
-    public function getInstallArguments(): string
+    public function getInstallArguments(): array
     {
         return $this->installArguments;
     }
