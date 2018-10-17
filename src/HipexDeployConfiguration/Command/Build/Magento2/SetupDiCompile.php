@@ -4,11 +4,11 @@
  * @copyright (c) Hipex B.V. 2018
  */
 
-namespace HipexDeployConfiguration\Command\Deploy\Magento2;
+namespace HipexDeployConfiguration\Command\Build\Magento2;
 
-use HipexDeployConfiguration\DeployCommand;
+use HipexDeployConfiguration\Command;
 
-class SetupDiCompile extends DeployCommand
+class SetupDiCompile extends Command
 {
     /**
      * DeployModeSet constructor.
