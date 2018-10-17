@@ -78,7 +78,7 @@ class Configuration
 
     /**
      * Commands to execute after successful deploy. Commonly used to send deploy email or push a New Relic deploy tag.
-     * These commands are run on the build image and not on the server(s).
+     * These commands are run on the production server(s).
      *
      * @var Command[]
      */
