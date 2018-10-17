@@ -6,7 +6,6 @@
 
 namespace HipexDeployConfiguration\Configuration;
 
-use HipexDeployConfiguration\Command\Deploy\Magento2\SetupStaticContentDeploy;
 use HipexDeployConfiguration\Configuration;
 use HipexDeployConfiguration\Command;
 
@@ -18,7 +17,7 @@ class Magento2 extends Configuration
      * @param string $gitRepository
      * @param string[] $locales
      */
-    public function __construct(string $gitRepository, array $locales = SetupStaticContentDeploy::DEFAULT_LOCALES)
+    public function __construct(string $gitRepository, array $locales)
     {
         parent::__construct($gitRepository);
 
