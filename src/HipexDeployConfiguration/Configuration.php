@@ -266,10 +266,10 @@ class Configuration
     }
 
     /**
-     * @param DeployCommand $deployCommands
+     * @param DeployCommand[] $deployCommands
      * @return $this
      */
-    public function setDeployCommands(DeployCommand $deployCommands): self
+    public function setDeployCommands($deployCommands): self
     {
         $this->deployCommands = [];
         foreach ($deployCommands as $command) {
@@ -297,10 +297,10 @@ class Configuration
     }
 
     /**
-     * @param Command $afterDeployCommands
+     * @param Command[] $afterDeployCommands
      * @return $this
      */
-    public function setAfterDeployCommands(Command $afterDeployCommands): self
+    public function setAfterDeployCommands($afterDeployCommands): self
     {
         $this->afterDeployCommands = [];
         foreach ($afterDeployCommands as $command) {
