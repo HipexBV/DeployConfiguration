@@ -51,5 +51,13 @@ class Magento2 extends Configuration
             'var/report',
             'pub/media',
         ]);
+
+        $configuration->setDeployExclude([
+            'setup/',
+            'phpserver/',
+            'docker/',
+            'dev/',
+            'deploy/',
+        ]);
     }
 }
