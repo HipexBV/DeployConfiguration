@@ -47,10 +47,9 @@ or to be able to send out notifications.
 - `SSH_PRIVATE_KEY` Unencrypted SSH key. The key needs to have access to: main git repository, private packages
 and the SSH user.
 
-### Magento 2
+### Composer authentication
 These variables are only required if Magento composer repository authentication is not configured using `auth.json`. 
-- `MAGENTO_REPO_USERNAME` Magento composer repository API username
-- `MAGENTO_REPO_PASSWORD` Magento composer repository API password
+- `COMPOSER_AUTH` base64 encoded content of `auth.json`. Can be fetched using `cat auth.json | base64`.
 
 ### Optional
 Email notifications
