@@ -87,3 +87,13 @@ docker run -it -e SSH_PRIVATE_KEY -e DEPLOY_COMPOSER_AUTH -v `pwd`:/build hipex/
 ```bash
 docker run -it -e SSH_PRIVATE_KEY -e DEPLOY_COMPOSER_AUTH -v `pwd`:/build hipex/deploy hipex-deploy deploy acceptance -vvv 
 ```
+
+## Deployer variables
+Deployer exposes allot of variables you can fetch using the `\Deployer\get` or any other deployer method. Please see
+https://deployer.org/docs/configuration for a more detailed explenation. On top of the default variables exposed by 
+deployer the Hipex image adds the following:
+
+- `bin/php` PHP binary location
+- `public_folder` Public html folder of the project.
+- `cpu_cores` Number of CPU cores on the system
+- `release_message` Markdown formatted release message, including branch, commit and merged branches. 
