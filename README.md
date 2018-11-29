@@ -97,3 +97,4 @@ deployer the Hipex image adds the following:
 - `public_folder` Public html folder of the project.
 - `cpu_cores` Number of CPU cores on the system
 - `release_message` Markdown formatted release message, including branch, commit and merged branches. 
+- `commit_sha` Commit sha1 reference
