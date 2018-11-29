@@ -49,7 +49,7 @@ and the SSH user.
 
 ### Composer authentication
 These variables are only required if Magento composer repository authentication is not configured using `auth.json`. 
-- `COMPOSER_AUTH` base64 encoded content of `auth.json`. Can be fetched using `cat auth.json | base64`.
+- `DEPLOY_COMPOSER_AUTH` base64 encoded content of `auth.json`. Can be fetched using `cat auth.json | base64`.
 
 ### Optional
 Email notifications
@@ -65,3 +65,25 @@ NewRelic deploy mark (https://deployer.org/recipes/newrelic)
 
 Slack (https://deployer.org/recipes/slack)
 - `SLACK_WEBHOOK`
+
+## Testing
+To test your build & deploy you can run your deploy locally.
+
+First make sure you have all the required env variables setup using.
+
+```bash
+export SSH_PRIVATE_KEY=***
+export DEPLOY_COMPOSER_AUTH=***
+.... etc
+```
+
+Then start your build / deployment run command from root of the project.
+
+*repeat -e <ENV> for all env vars that are present during build*
+```bash
+docker run -it -e SSH_PRIVATE_KEY -e DEPLOY_COMPOSER_AUTH -v `pwd`:/build hipex/deploy hipex-deploy build -vvv 
+```
+
+```bash
+docker run -it -e SSH_PRIVATE_KEY -e DEPLOY_COMPOSER_AUTH -v `pwd`:/build hipex/deploy hipex-deploy deploy acceptance -vvv 
+```
