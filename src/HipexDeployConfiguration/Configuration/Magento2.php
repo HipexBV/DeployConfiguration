@@ -52,7 +52,7 @@ class Magento2 extends Configuration
             'pub/media',
         ]);
 
-        $configuration->setDeployExclude([
+        $this->setDeployExclude([
             'setup/',
             'phpserver/',
             'docker/',
