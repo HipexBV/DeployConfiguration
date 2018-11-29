@@ -15,26 +15,29 @@ class Magento2 extends Configuration
      * Magento2 constructor.
      *
      * @param string $gitRepository
-     * @param string[]|null $locales
+     * @param array|null $localesFrontend
+     * @param array|null $localesBackend
      */
-    public function __construct(string $gitRepository, array $locales = null)
+    public function __construct(string $gitRepository, array $localesFrontend = null, array $localesBackend = null)
     {
         parent::__construct($gitRepository);
 
-        $this->initializeDefaultConfiguration($locales);
+        $this->initializeDefaultConfiguration($localesFrontend, $localesBackend);
     }
 
     /**
      * Initialize defaults
      *
-     * @param string[]|null $locales
+     * @param array|null $localesFrontend
+     * @param array|null $localesBackend
      */
-    private function initializeDefaultConfiguration(array $locales = null): void
+    private function initializeDefaultConfiguration(array $localesFrontend = null, array $localesBackend = null): void
     {
         $this->setPhpVersion('php71');
         $this->addBuildCommand(new Command\Build\Composer());
         $this->addBuildCommand(new Command\Build\Magento2\SetupDiCompile());
-        $this->addBuildCommand(new Command\Build\Magento2\SetupStaticContentDeploy($locales));
+        $this->addBuildCommand(new Command\Build\Magento2\SetupStaticContentDeploy($localesFrontend, 'frontend'));
+        $this->addBuildCommand(new Command\Build\Magento2\SetupStaticContentDeploy($localesBackend, 'backend'));
 
         $this->addDeployCommand(new Command\Deploy\Magento2\MaintenanceMode());
         $this->addDeployCommand(new Command\Deploy\Magento2\SetupUpgrade());
@@ -52,7 +55,7 @@ class Magento2 extends Configuration
             'pub/media',
         ]);
 
-        $configuration->setDeployExclude([
+        $this->setDeployExclude([
             'setup/',
             'phpserver/',
             'docker/',
