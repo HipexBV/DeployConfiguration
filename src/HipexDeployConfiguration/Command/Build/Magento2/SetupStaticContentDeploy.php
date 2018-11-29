@@ -20,20 +20,33 @@ class SetupStaticContentDeploy extends Command
      */
     public function __construct(array $locales = null, string $area = null, array $arguments = [])
     {
-        parent::__construct('{{bin/php}} bin/magento setup:static-content:deploy --force {{magento2/static-content-arguments}} {{magento2/locales}}');
+        parent::__construct(sprintf(
+            '{{bin/php}} bin/magento setup:static-content:deploy --force %s %s',
+            $this->getArguments($area, $arguments),
+            $this->getLocales($locales)
+        ));
+    }
 
-        set('magento2/locales', function() use ($locales) {
-            return $locales ? implode(' ', $locales) : '';
-        });
+    /**
+     * @param array|null $locales
+     * @return string
+     */
+    private function getLocales(array $locales = null): string
+    {
+        return $locales ? implode(' ', $locales) : '';
+    }
 
-        set('magento2/static-content-arguments', function() use ($area, $arguments) {
-            $arguments = [];
+    /**
+     * @param string|null $area
+     * @param array $arguments
+     * @return string
+     */
+    private function getArguments(string $area = null, array $arguments = []): string
+    {
+        if ($area) {
+            $arguments[] = '--area=' . $area;
+        }
 
-            if ($area) {
-                $arguments[] = '--area=' . $area;
-            }
-
-            return implode(' ', $arguments);
-        });
+        return implode(' ', $arguments);
     }
 }
