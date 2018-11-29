@@ -6,7 +6,9 @@
 
 namespace HipexDeployConfiguration\Command\Build\Magento2;
 
+use function Deployer\run;
 use function Deployer\set;
+use function Deployer\test;
 use HipexDeployConfiguration\Command;
 
 class SetupStaticContentDeploy extends Command
@@ -21,7 +23,7 @@ class SetupStaticContentDeploy extends Command
     public function __construct(array $locales = null, string $area = null, array $arguments = [])
     {
         parent::__construct(sprintf(
-            '{{bin/php}} bin/magento setup:static-content:deploy --force %s %s',
+            '{{bin/php}} bin/magento setup:static-content:deploy --jobs {{cpu_cores}} --force %s %s',
             $this->getArguments($area, $arguments),
             $this->getLocales($locales)
         ));
