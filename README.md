@@ -20,7 +20,7 @@ can be overwritten / extended by the projects `deploy.php`.
 1. Composer `require hipex/deploy-configuration --dev` package. Only needed when you want to have autocomplete in your `deploy.php`
 file.
 2. Copy the deploy templates inside the root of your project as `deploy.php`. You can find the template in
-[templates/deploy.php](./templates/deploy.php).
+[templates/](./templates/). Choose one of the templates fitting to your project. `deploy.php` is a showcase for your entire project.
 3. Setup your CI server
     1.  GitLab CI [templates/.gitlab-ci.yml](./templates/.gitlab-ci.yml).
     3.  Bitbucket [templates/bitbucket-pipelines.yml](./templates/bitbucket-pipelines.yml).
