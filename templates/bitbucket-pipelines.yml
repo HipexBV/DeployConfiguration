@@ -14,6 +14,7 @@ pipelines:
             - build/**
       - step:
           name: deploy
+          image: hipex/deploy
           script:
             - hipex-deploy test
 
@@ -28,5 +29,6 @@ pipelines:
             - build/**
       - step:
           name: deploy
+          image: hipex/deploy
           script:
             - hipex-deploy production
