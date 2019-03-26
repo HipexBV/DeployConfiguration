@@ -16,7 +16,7 @@ pipelines:
           name: deploy
           image: hipex/deploy
           script:
-            - hipex-deploy test
+            - hipex-deploy deploy
 
     # Deploy to production
     master:
