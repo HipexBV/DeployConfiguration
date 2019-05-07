@@ -60,6 +60,7 @@ $testStage->addServer('production205');
  */
 $configuration->addAfterDeployCommand(new Command\After\NewRelic());
 $configuration->addAfterDeployCommand(new Command\After\EmailNotification());
+$configuration->addAfterDeployCommand(new Command\After\Cloudflare());
 $configuration->addAfterDeployCommand(new Command\After\SlackWebhook(
     'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
 ));

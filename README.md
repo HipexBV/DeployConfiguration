@@ -20,7 +20,7 @@ can be overwritten / extended by the projects `deploy.php`.
 1. Composer `require hipex/deploy-configuration --dev` package. Only needed when you want to have autocomplete in your `deploy.php`
 file.
 2. Copy the deploy templates inside the root of your project as `deploy.php`. You can find the template in
-[templates/](./templates/). Choose one of the templates fitting to your project. `deploy.php` is a showcase for your entire project.
+[templates/deploy.php](./templates/deploy.php).
 3. Setup your CI server
     1.  GitLab CI [templates/.gitlab-ci.yml](./templates/.gitlab-ci.yml).
     3.  Bitbucket [templates/bitbucket-pipelines.yml](./templates/bitbucket-pipelines.yml).
@@ -45,7 +45,7 @@ or to be able to send out notifications.
 
 ### Required
 - `SSH_PRIVATE_KEY` Unencrypted SSH key. The key needs to have access to: main git repository, private packages
-and the SSH user.
+and the SSH user. Can be base64 encoded or in plain text.
 
 ### Composer authentication
 These variables are only required if Magento composer repository authentication is not configured using `auth.json`. 
@@ -65,6 +65,9 @@ NewRelic deploy mark (https://deployer.org/recipes/newrelic)
 
 Slack (https://deployer.org/recipes/slack)
 - `SLACK_WEBHOOK`
+
+Cloudflare
+- `CLOUDFLARE_SERVICE_KEY`
 
 ## Testing
 To test your build & deploy you can run your deploy locally.
