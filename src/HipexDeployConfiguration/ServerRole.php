@@ -12,7 +12,7 @@ class ServerRole
      * Available server roles
      */
     public const APPLICATION = 'application';
-    public const APPLICATION_FIRST = 'application';
+    public const APPLICATION_FIRST = 'application_first';
     public const LOAD_BALANCER = 'load_balancer';
     public const REDIS = 'redis';
     public const VARNISH = 'varnish';
@@ -25,6 +25,7 @@ class ServerRole
     {
         return [
             self::APPLICATION,
+            self::APPLICATION_FIRST,
             self::LOAD_BALANCER,
             self::REDIS,
             self::VARNISH,
