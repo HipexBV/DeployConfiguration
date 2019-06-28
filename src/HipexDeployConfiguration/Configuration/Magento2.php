@@ -18,7 +18,7 @@ class Magento2 extends Configuration
      * @param array|null $localesFrontend
      * @param array|null $localesBackend
      */
-    public function __construct(string $gitRepository, array $localesFrontend = null, array $localesBackend = null)
+    public function __construct(string $gitRepository, array $localesFrontend, array $localesBackend)
     {
         parent::__construct($gitRepository);
 
