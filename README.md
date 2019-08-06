@@ -135,7 +135,8 @@ Create a varnish instance managed by supervisord on server with role `ServerRole
 Arguments:
 - `memory` Memory usage (default `1024m`)
 - `frontendPort` Default varnish frontend port (default `6181`)
-- `backendPort` Default varnish backend port (default `6182`)
+- `adminPort` Default varnish admin port (default `6182`)
+- `configFile` Varnish configuration file (default `etc/varnish.vcl`)
 - `arguments` Extra arguments used to start varnish
 
 

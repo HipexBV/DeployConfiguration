@@ -18,6 +18,7 @@ class VarnishConfiguration extends DeployCommand
     const DEFAULT_FRONTEND_PORT = 6181;
     const DEFAULT_BACKEND_PORT = 6182;
     const DEFAULT_MEMORY = '1024m';
+    const DEFAULT_CONFIG_FILE = 'etc/varnish.vcl';
 
     /**
      * @var string
@@ -40,15 +41,22 @@ class VarnishConfiguration extends DeployCommand
     private $arguments;
 
     /**
+     * @var string
+     */
+    private $configFile;
+
+    /**
      * @param string   $memory
      * @param int      $frontendPort
      * @param int      $backendPort
+     * @param string   $configFile
      * @param string[] $configuration
      */
     public function __construct(
         $memory = self::DEFAULT_MEMORY,
         $frontendPort = self::DEFAULT_FRONTEND_PORT,
         $backendPort = self::DEFAULT_BACKEND_PORT,
+        $configFile = self::DEFAULT_CONFIG_FILE,
         $configuration = []
     ) {
         $this->memory = $memory;
@@ -57,6 +65,7 @@ class VarnishConfiguration extends DeployCommand
         $this->arguments = $configuration;
         $this->setServerRoles([ServerRole::VARNISH]);
         parent::__construct();
+        $this->configFile = $configFile;
     }
 
     /**
@@ -81,6 +90,14 @@ class VarnishConfiguration extends DeployCommand
     public function getBackendPort()
     {
         return $this->backendPort;
+    }
+
+    /**
+     * @return string
+     */
+    public function getConfigFile()
+    {
+        return $this->configFile;
     }
 
     /**
