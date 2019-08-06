@@ -98,6 +98,33 @@ deployer the Hipex image adds the following:
 
 - `bin/php` PHP binary location
 - `public_folder` Public html folder of the project.
+- `domain_path` Root domain folder (`/home/<user>/domains/<domain>`)
+- `deploy_path` Root deploy folder containing releases, shared files etc: (`/home/<user>/domains/<domain>/application`)
 - `cpu_cores` Number of CPU cores on the system
 - `release_message` Markdown formatted release message, including branch, commit and merged branches. 
 - `commit_sha` Commit sha1 reference
+
+## Commonly used commands
+
+### \HipexDeployConfiguration\Command\Deploy\NginxConfiguration
+Synchronise nginx configuration from repository to server
+
+Arguments:
+- `sourceFolder` Relative path to the nginx configuration in project. (default `etc/nginx/`)
+
+### \HipexDeployConfiguration\Command\Deploy\CronConfiguration
+Replaces crontab with cron file from git. Will prepend some extra env variables to use in cronjobs:
+
+- `PATH`, bash configured `PATH` variable at deploy time.
+- `APP_ROOT` Root of the current release `{{release_path}}`
+
+Arguments:
+- `sourceFifle` Relative path to the crontab file. (default `etc/cron`) 
+
+### \HipexDeployConfiguration\Command\Deploy\Magento2\JobqueueConsumer
+Create a supervisord managed jobqueue consumer on server with role `ServerRole::APPLICATION_FIRST`.
+
+Arguments:
+- `consumer` Name of the consumer for example `async.operations.all`
+- `workers` Number of consumers to run  (default `1`)
+
