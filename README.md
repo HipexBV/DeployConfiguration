@@ -128,3 +128,21 @@ Arguments:
 - `consumer` Name of the consumer for example `async.operations.all`
 - `workers` Number of consumers to run  (default `1`)
 
+###  \HipexDeployConfiguration\Command\Deploy\VarnishConfiguration
+Create a varnish instance managed by supervisord on server with role `ServerRole::VARNISH`.
+
+Arguments:
+- `memory` Memory usage (default `1024m`)
+- `frontendPort` Default varnish frontend port (default `6181`)
+- `backendPort` Default varnish backend port (default `6182`)
+- `arguments` Extra arguments used to start varnish
+
+
+###  \HipexDeployConfiguration\Command\Deploy\RedisConfiguration
+Create a redis instance managed by supervisord on server with role `ServerRole::REDIS`.
+
+Arguments:
+- `maxMemory` Max memory usage (default `1024m`)
+- `listen` Listen to unix socket or ip:port (default `{{domain_path}}var/run/redis.sock`)
+- `master` Redis instance is slave of configuration
+- `configuration` Extra configuration for redis config
