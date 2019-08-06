@@ -7,10 +7,9 @@ declare(strict_types = 1);
 
 namespace HipexDeployConfiguration\Command\Deploy;
 
-use HipexDeployConfiguration\DeployCommand;
 use HipexDeployConfiguration\ServerRole;
 
-class RedisConfiguration extends DeployCommand
+class RedisConfiguration extends SupervisorConfiguration
 {
     /**
      * Defaults
@@ -19,7 +18,7 @@ class RedisConfiguration extends DeployCommand
     const DEFAULT_LISTEN = '{{domain_path}}var/run/redis.sock';
 
     /**
-     * @var int
+     * @var string
      */
     private $maxMemory;
 
@@ -41,32 +40,52 @@ class RedisConfiguration extends DeployCommand
     /**
      * @var array
      */
-    private $configuration;
+    private $redisConfiguration;
+
+    /**
+     * @var string
+     */
+    private $identifier;
 
     /**
      * @param string   $maxMemory
      * @param string   $listen
-     * @param null     $master
-     * @param string[] $configuration
+     * @param string   $master
+     * @param string   $identifier
+     * @param string[] $redisConfiguration
      */
     public function __construct(
-        $maxMemory = self::DEFAULT_MEMORY,
-        $listen = self::DEFAULT_LISTEN,
-        $master = null,
-        $configuration = []
+        string $maxMemory = self::DEFAULT_MEMORY,
+        string $listen = self::DEFAULT_LISTEN,
+        string $master = null,
+        string $identifier = 'backend',
+        array $redisConfiguration = []
     ) {
         $this->maxMemory = $maxMemory;
         $this->listen = $listen;
         $this->master = $master;
-        $this->configuration = $configuration;
+        $this->redisConfiguration = $redisConfiguration;
+        $this->identifier = $identifier;
+
         $this->setServerRoles([ServerRole::REDIS]);
-        parent::__construct();
+        $this->setWorkingDirectory(sprintf('{{redis/%s/directory}}', $this->identifier));
+
+        parent::__construct(
+            'redis-' . $identifier,
+            "logrun redis-${identifier} redis-server -c {{redis/${identifier}/config-file}}",
+            1,
+            [
+                'stdout_logfile' => "{{redis/${identifier}/log-file}}",
+                'redirect_stderr' => 'true',
+                'stdout_logfile_maxbytes' => '50MB',
+            ]
+        );
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getMaxMemory()
+    public function getMaxMemory(): string
     {
         return $this->maxMemory;
     }
@@ -74,7 +93,7 @@ class RedisConfiguration extends DeployCommand
     /**
      * @return string
      */
-    public function getListen()
+    public function getListen(): string
     {
         return $this->listen;
     }
@@ -90,7 +109,7 @@ class RedisConfiguration extends DeployCommand
     /**
      * @return string|null
      */
-    public function getMaster()
+    public function getMaster(): ?string
     {
         return $this->master;
     }
@@ -98,8 +117,16 @@ class RedisConfiguration extends DeployCommand
     /**
      * @return array
      */
-    public function getConfiguration()
+    public function getRedisConfiguration(): array
     {
-        return $this->configuration;
+        return $this->redisConfiguration;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifier(): string
+    {
+        return $this->identifier;
     }
 }

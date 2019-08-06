@@ -43,7 +43,7 @@ class JobQueueConsumer extends SupervisorConfiguration
     {
         return implode(' ', [
             sprintf('logrun consumer.%s', $this->consumer),
-            '{{bin/php}} bin/magento',
+            'timeout 600 {{bin/php}} bin/magento',
             sprintf('queue:consumers:start %s', $this->consumer),
             sprintf('--max-messages=%s', $this->maxMessages),
         ]);
