@@ -7,10 +7,9 @@ declare(strict_types = 1);
 
 namespace HipexDeployConfiguration\Command\Deploy;
 
-use HipexDeployConfiguration\DeployCommand;
 use HipexDeployConfiguration\ServerRole;
 
-class VarnishConfiguration extends DeployCommand
+class VarnishConfiguration extends SupervisorConfiguration
 {
     /**
      * Defaults
@@ -65,46 +64,34 @@ class VarnishConfiguration extends DeployCommand
         $this->arguments = $configuration;
         $this->configFile = $configFile;
         $this->setServerRoles([ServerRole::VARNISH]);
-        parent::__construct();
-    }
 
-    /**
-     * @return int
-     */
-    public function getMemory()
-    {
-        return $this->memory;
-    }
-
-    /**
-     * @return int
-     */
-    public function getFrontendPort()
-    {
-        return $this->frontendPort;
-    }
-
-    /**
-     * @return int
-     */
-    public function getBackendPort()
-    {
-        return $this->backendPort;
+        parent::__construct('varnish', '');
     }
 
     /**
      * @return string
      */
-    public function getConfigFile()
+    public function getSupervisorCommand()
     {
-        return $this->configFile;
+        return implode(' ', array_merge([
+            'varnishd',
+            '-p feature=+esi_ignore_other_elements',
+            '-p vcc_allow_inline_c=on',
+            '-a :' . $this->frontendPort,
+            '-T localhost:' . $this->backendPort,
+            '-f {{domain_path}}/var/etc/varnish.vcl',
+            '-S {{domain_path}}/var/etc/varnish.secret',
+            '-s malloc,' . $this->memory,
+            '-F',
+            '-n {{domain_path}}/var/run',
+        ], $this->arguments));
     }
 
     /**
-     * @return string[]
+     * @return string
      */
-    public function getArguments()
+    public function getConfigFile(): string
     {
-        return $this->arguments;
+        return $this->configFile;
     }
 }

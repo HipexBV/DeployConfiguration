@@ -147,7 +147,7 @@ Arguments:
 - `maxMemory` Max memory usage (default `1024m`)
 - `listen` Listen to unix socket or ip:port (default `{{domain_path}}var/run/redis.sock`)
 - `master` Redis instance is slave of configuration
-- `configuration` Extra configuration for redis config
+- `configuration` Key value pairs with extra configuration for redis config
 
 
 ### \HipexDeployConfiguration\Command\Deploy\SupervisorConfiguration
@@ -156,5 +156,5 @@ Create supervisor service configuration for long running process like varnish or
 Arguments:
 - `name` Name of the service
 - `supervisorCommand` The command to run
-- `workders` Number of workers (default `1`)
-- `configuration` Array of extra configuration settings for supervisor.
+- `workers` Number of workers (default `1`)
+- `configuration` Array of extra key value pairs with configuration settings for supervisor
