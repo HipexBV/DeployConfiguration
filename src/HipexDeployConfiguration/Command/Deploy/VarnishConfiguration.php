@@ -63,9 +63,9 @@ class VarnishConfiguration extends DeployCommand
         $this->frontendPort = $frontendPort;
         $this->backendPort = $backendPort;
         $this->arguments = $configuration;
+        $this->configFile = $configFile;
         $this->setServerRoles([ServerRole::VARNISH]);
         parent::__construct();
-        $this->configFile = $configFile;
     }
 
     /**

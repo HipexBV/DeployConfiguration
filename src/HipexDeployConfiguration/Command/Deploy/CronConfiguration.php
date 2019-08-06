@@ -8,6 +8,7 @@ declare(strict_types = 1);
 namespace HipexDeployConfiguration\Command\Deploy;
 
 use HipexDeployConfiguration\DeployCommand;
+use HipexDeployConfiguration\ServerRole;
 
 class CronConfiguration extends DeployCommand
 {
@@ -22,6 +23,7 @@ class CronConfiguration extends DeployCommand
     public function __construct($sourceFile = 'etc/cron')
     {
         $this->sourceFile = $sourceFile;
+        $this->setServerRoles([ServerRole::APPLICATION_FIRST]);
     }
 
     /**
