@@ -128,7 +128,8 @@ Arguments:
 - `consumer` Name of the consumer for example `async.operations.all`
 - `workers` Number of consumers to run  (default `1`)
 
-###  \HipexDeployConfiguration\Command\Deploy\VarnishConfiguration
+
+### \HipexDeployConfiguration\Command\Deploy\VarnishConfiguration
 Create a varnish instance managed by supervisord on server with role `ServerRole::VARNISH`.
 
 Arguments:
@@ -138,7 +139,7 @@ Arguments:
 - `arguments` Extra arguments used to start varnish
 
 
-###  \HipexDeployConfiguration\Command\Deploy\RedisConfiguration
+### \HipexDeployConfiguration\Command\Deploy\RedisConfiguration
 Create a redis instance managed by supervisord on server with role `ServerRole::REDIS`.
 
 Arguments:
@@ -146,3 +147,13 @@ Arguments:
 - `listen` Listen to unix socket or ip:port (default `{{domain_path}}var/run/redis.sock`)
 - `master` Redis instance is slave of configuration
 - `configuration` Extra configuration for redis config
+
+
+### \HipexDeployConfiguration\Command\Deploy\SupervisorConfiguration
+Create supervisor service configuration for long running process like varnish or PWA nodejs service.
+
+Arguments:
+- `name` Name of the service
+- `supervisorCommand` The command to run
+- `workders` Number of workers (default `1`)
+- `configuration` Array of extra configuration settings for supervisor.
