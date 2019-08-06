@@ -27,13 +27,13 @@ class JobQueueConsumer extends SupervisorConfiguration
      * @param int    $workers
      * @param int    $maxMessages
      */
-    public function __construct($consumer, $workers = 1, $maxMessages = 100)
+    public function __construct(string $consumer, int $workers = 1, int $maxMessages = 100)
     {
         $this->consumer = $consumer;
         $this->maxMessages = $maxMessages;
         $this->setServerRoles([ServerRole::APPLICATION_FIRST]);
-        $this->setWorkingDirectory('{{release_path}}');
-        parent::__construct('jobqueue-consumer-' . $consumer, $workers);
+        $this->setWorkingDirectory('{{release_path/realpath}}');
+        parent::__construct('jobqueue-consumer-' . $consumer, '', $workers);
     }
 
     /**

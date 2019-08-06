@@ -37,7 +37,7 @@ class SupervisorConfiguration extends DeployCommand
      * @param int      $workers
      * @param string[] $configuration
      */
-    public function __construct($name, $supervisorCommand, $workers = 1, $configuration = [])
+    public function __construct(string $name, string $supervisorCommand, int $workers = 1, array $configuration = [])
     {
         $this->name = $name;
         $this->supervisorCommand = $supervisorCommand;
