@@ -46,7 +46,11 @@ or to be able to send out notifications.
 
 ### Required
 - `SSH_PRIVATE_KEY` Unencrypted SSH key. The key needs to have access to: main git repository, private packages
-and the SSH user. Can be base64 encoded or in plain text.
+and the SSH user. Must be base64 encoded like this:
+
+```bash
+cat ~/.ssh/deploy_key | base64
+```
 
 ### Composer authentication
 These variables are only required if Magento composer repository authentication is not configured using `auth.json`. 
