@@ -6,6 +6,8 @@
 
 namespace HipexDeployConfiguration\Command\Build;
 
+use function Deployer\run;
+use function Deployer\test;
 use HipexDeployConfiguration\Command;
 
 class Composer extends Command
@@ -34,7 +36,11 @@ class Composer extends Command
      */
     public function __construct(array $installArguments = self::DEFAULT_INSTALL_ARGUMENTS)
     {
-        parent::__construct('{{bin/composer}} install {{composer/install_arguments}}');
+        parent::__construct(function() {
+            if (!test('[ -d vendor ]')) {
+                run('{{bin/composer}} install {{composer/install_arguments}}');
+            }
+        });
 
         $this->installArguments = $installArguments;
     }

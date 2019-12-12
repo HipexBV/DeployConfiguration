@@ -6,6 +6,8 @@
 
 namespace HipexDeployConfiguration\Command\Build\Magento2;
 
+use function Deployer\test;
+use function Deployer\run;
 use HipexDeployConfiguration\Command;
 
 class SetupDiCompile extends Command
@@ -15,6 +17,10 @@ class SetupDiCompile extends Command
      */
     public function __construct()
     {
-        parent::__construct('{{bin/php}} bin/magento setup:di:compile');
+        parent::__construct(function() {
+            if (!test('[ -d generated ]')) {
+                run('{{bin/php}} bin/magento setup:di:compile');
+            }
+        });
     }
 }
