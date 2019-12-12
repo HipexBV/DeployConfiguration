@@ -7,24 +7,21 @@
 namespace HipexDeployConfiguration\Command\Build\Magento2;
 
 use function Deployer\test;
+use function Deployer\run;
 use HipexDeployConfiguration\Command;
 use HipexDeployConfiguration\OptionalCommandInterface;
 
-class SetupDiCompile extends Command implements OptionalCommandInterface
+class SetupDiCompile extends Command
 {
     /**
      * DeployModeSet constructor.
      */
     public function __construct()
     {
-        parent::__construct('{{bin/php}} bin/magento setup:di:compile');
-    }
-
-    /**
-     * @return bool
-     */
-    public function shouldExecuteCommand(): bool
-    {
-        return !test('[ -d generated ]');
+        parent::__construct(function() {
+            if (!test('[ -d generated ]')) {
+                run('{{bin/php}} bin/magento setup:di:compile');
+            }
+        });
     }
 }

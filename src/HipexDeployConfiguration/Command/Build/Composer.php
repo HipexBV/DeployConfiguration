@@ -6,11 +6,11 @@
 
 namespace HipexDeployConfiguration\Command\Build;
 
+use function Deployer\run;
 use function Deployer\test;
 use HipexDeployConfiguration\Command;
-use HipexDeployConfiguration\OptionalCommandInterface;
 
-class Composer extends Command implements OptionalCommandInterface
+class Composer extends Command
 {
     /**
      * Default installation arguments
@@ -36,7 +36,11 @@ class Composer extends Command implements OptionalCommandInterface
      */
     public function __construct(array $installArguments = self::DEFAULT_INSTALL_ARGUMENTS)
     {
-        parent::__construct('{{bin/composer}} install {{composer/install_arguments}}');
+        parent::__construct(function() {
+            if (!test('[ -d vendor ]')) {
+                run('{{bin/composer}} install {{composer/install_arguments}}');
+            }
+        });
 
         $this->installArguments = $installArguments;
     }
@@ -47,13 +51,5 @@ class Composer extends Command implements OptionalCommandInterface
     public function getInstallArguments(): array
     {
         return $this->installArguments;
-    }
-
-    /**
-     * @return bool
-     */
-    public function shouldExecuteCommand(): bool
-    {
-        return !test('[ -d vendor ]');
     }
 }
