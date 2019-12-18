@@ -37,7 +37,7 @@ class Composer extends Command
     public function __construct(array $installArguments = self::DEFAULT_INSTALL_ARGUMENTS)
     {
         parent::__construct(function() {
-            if (!test('[ -d vendor ]')) {
+            if (!test('[ -f vendor/autoload.php ]')) {
                 run('{{bin/composer}} install {{composer/install_arguments}}');
             }
         });
