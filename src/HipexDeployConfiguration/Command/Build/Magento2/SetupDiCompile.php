@@ -18,7 +18,7 @@ class SetupDiCompile extends Command
     public function __construct()
     {
         parent::__construct(function() {
-            if (!test('[ -d generated ]')) {
+            if (!test('[ -d generated/code ]')) {
                 run('{{bin/php}} bin/magento setup:di:compile');
             }
         });
