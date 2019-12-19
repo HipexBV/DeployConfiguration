@@ -66,12 +66,13 @@ class Stage
 
     /**
      * @param string $hostname
-     * @param array $roles
+     * @param array  $roles
+     * @param array  $options Extra host options
      * @return Server
      */
-    public function addServer(string $hostname, array $roles = null): Server
+    public function addServer(string $hostname, array $roles = null, array $options = []): Server
     {
-        $server = new Server($hostname, $roles);
+        $server = new Server($hostname, $roles, $options);
         $this->servers[] = $server;
         return $server;
     }
