@@ -31,6 +31,7 @@ class Server
      *
      * @param string $hostname
      * @param string[] $roles
+     * @param string[] $options
      */
     public function __construct(string $hostname, array $roles = null, array $options = [])
     {
