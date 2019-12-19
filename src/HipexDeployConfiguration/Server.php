@@ -22,15 +22,21 @@ class Server
     private $roles;
 
     /**
+     * @var string[]
+     */
+    private $options = [];
+
+    /**
      * Server constructor.
      *
      * @param string $hostname
      * @param string[] $roles
      */
-    public function __construct(string $hostname, array $roles = null)
+    public function __construct(string $hostname, array $roles = null, array $options = [])
     {
         $this->hostname = $hostname;
         $this->roles = $roles ?: ServerRole::getValues();
+        $this->options = $options;
     }
 
     /**
@@ -48,4 +54,13 @@ class Server
     {
         return $this->roles;
     }
+
+    /**
+     * @return string[]
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
 }
+
