@@ -19,7 +19,7 @@ class SetupDiCompile extends Command
     {
         parent::__construct(function() {
             if (!test('[ -d generated/code ]')) {
-                run('{{bin/php}} bin/magento setup:di:compile');
+                run('{{bin/php}} bin/magento setup:di:compile', ['timeout' => 3600]);
             }
         });
     }
