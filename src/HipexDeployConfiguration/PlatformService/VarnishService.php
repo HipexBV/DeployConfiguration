@@ -4,7 +4,7 @@
  * @copyright (c) Hipex B.V. 2020
  */
 
-namespace HipexDeployConfiguration\Command\Deploy;
+namespace HipexDeployConfiguration\PlatformService;
 
 use HipexDeployConfiguration\ServerRole;
 use HipexDeployConfiguration\ServerRoleConfigurableInterface;
@@ -43,21 +43,29 @@ class VarnishService implements PlatformServiceInterface, ServerRoleConfigurable
     private $configFile;
 
     /**
-     * @param string   $memory
-     * @param int      $frontendPort
-     * @param int      $backendPort
-     * @param string   $configFile
+     * @var array
+     */
+    private $arguments;
+
+    /**
+     * @param string $memory
+     * @param int    $frontendPort
+     * @param int    $backendPort
+     * @param string $configFile
+     * @param array  $arguments
      */
     public function __construct(
         $memory = self::DEFAULT_MEMORY,
         $frontendPort = self::DEFAULT_FRONTEND_PORT,
         $backendPort = self::DEFAULT_BACKEND_PORT,
-        $configFile = self::DEFAULT_CONFIG_FILE
+        $configFile = self::DEFAULT_CONFIG_FILE,
+        array $arguments = []
     ) {
         $this->memory = $memory;
         $this->frontendPort = $frontendPort;
         $this->backendPort = $backendPort;
         $this->configFile = $configFile;
+        $this->arguments = $arguments;
 
         $this->setServerRoles([ServerRole::VARNISH]);
     }
@@ -68,5 +76,37 @@ class VarnishService implements PlatformServiceInterface, ServerRoleConfigurable
     public function getConfigFile(): string
     {
         return $this->configFile;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFrontendPort(): int
+    {
+        return $this->frontendPort;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBackendPort(): int
+    {
+        return $this->backendPort;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMemory(): string
+    {
+        return $this->memory;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArguments(): array
+    {
+        return $this->arguments;
     }
 }

@@ -4,7 +4,7 @@
  * @copyright (c) Hipex B.V. 2020
  */
 
-namespace HipexDeployConfiguration\Command\Deploy;
+namespace HipexDeployConfiguration\PlatformService;
 
 
 interface PlatformServiceInterface
