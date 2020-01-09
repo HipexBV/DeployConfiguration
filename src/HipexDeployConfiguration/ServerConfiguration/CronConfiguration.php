@@ -1,9 +1,8 @@
 <?php
 /**
- * @author Emico <info@emico.nl>
- * @copyright (c) Emico B.V. 2019
+ * @author Hipex <info@hipex.io>
+ * @copyright (c) Hipex B.V. 2020
  */
-declare(strict_types = 1);
 
 namespace HipexDeployConfiguration\ServerConfiguration;
 

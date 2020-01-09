@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @author Hipex <info@hipex.io>
+ * @copyright (c) Hipex B.V. 2020
+ */
+declare(strict_types = 1);
 
 namespace HipexDeployConfiguration;
 
