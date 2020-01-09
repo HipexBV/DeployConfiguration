@@ -8,9 +8,13 @@ declare(strict_types = 1);
 namespace HipexDeployConfiguration\Command\Deploy;
 
 use HipexDeployConfiguration\ServerRole;
+use HipexDeployConfiguration\ServerRoleConfigurableInterface;
+use HipexDeployConfiguration\ServerRoleConfigurableTrait;
 
-class RedisConfiguration extends SupervisorConfiguration
+class RedisService implements PlatformServiceInterface, ServerRoleConfigurableInterface
 {
+    use ServerRoleConfigurableTrait;
+
     /**
      * Defaults
      */
@@ -70,7 +74,7 @@ class RedisConfiguration extends SupervisorConfiguration
         $this->setServerRoles([ServerRole::REDIS]);
         $this->setWorkingDirectory(sprintf('{{redis/%s/directory}}', $this->identifier));
 
-        parent::__construct(
+        /*parent::__construct(
             'redis-' . $identifier,
             "logrun redis-${identifier} redis-server -c {{redis/${identifier}/config-file}}",
             1,
@@ -79,7 +83,7 @@ class RedisConfiguration extends SupervisorConfiguration
                 'redirect_stderr' => 'true',
                 'stdout_logfile_maxbytes' => '50MB',
             ]
-        );
+        );*/
     }
 
     /**

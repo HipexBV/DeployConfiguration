@@ -6,6 +6,9 @@
 
 namespace HipexDeployConfiguration;
 
+use HipexDeployConfiguration\Command\Deploy\PlatformServiceInterface;
+use HipexDeployConfiguration\ServerConfiguration\ServerConfigurationInterface;
+
 class Configuration
 {
     /**
@@ -83,6 +86,20 @@ class Configuration
      * @var Command[]
      */
     private $afterDeployCommands = [];
+
+    /**
+     * Server configurations to automatically provision from your repository to the Hipex platform
+     *
+     * @var array
+     */
+    private $serverConfigurations = [];
+
+    /**
+     * Addition services to run
+     *
+     * @var array
+     */
+    private $platformServices = [];
 
     /**
      * @var string
@@ -316,6 +333,68 @@ class Configuration
     public function addAfterDeployCommand(Command $command): self
     {
         $this->afterDeployCommands[] = $command;
+        return $this;
+    }
+
+    /**
+     * @return ServerConfigurationInterface[]
+     */
+    public function getServerConfigurations(): array
+    {
+        return $this->serverConfigurations;
+    }
+
+    /**
+     * @param ServerConfigurationInterface[] $serverConfigurations
+     * @return $this
+     */
+    public function setServerConfigurations(array $serverConfigurations): self
+    {
+        $this->serverConfigurations = [];
+        foreach ($serverConfigurations as $serverConfiguration) {
+            $this->addServerConfiguration($serverConfiguration);
+        }
+        return $this;
+    }
+
+    /**
+     * @param ServerConfigurationInterface $serverConfiguration
+     * @return Configuration
+     */
+    public function addServerConfiguration(ServerConfigurationInterface $serverConfiguration): self
+    {
+        $this->serverConfigurations[] = $serverConfiguration;
+        return $this;
+    }
+
+    /**
+     * @return PlatformServiceInterface[]
+     */
+    public function getPlatformServices(): array
+    {
+        return $this->platformServices;
+    }
+
+    /**
+     * @param PlatformServiceInterface[] $platformServices
+     * @return $this
+     */
+    public function setPlatformServices(array $platformServices): self
+    {
+        $this->platformServices = [];
+        foreach ($platformServices as $platformService) {
+            $this->addPlatformService($platformService);
+        }
+        return $this;
+    }
+
+    /**
+     * @param PlatformServiceInterface $platformService
+     * @return Configuration
+     */
+    public function addPlatformService(PlatformServiceInterface $platformService): self
+    {
+        $this->platformServices[] = $platformService;
         return $this;
     }
 

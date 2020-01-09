@@ -5,12 +5,15 @@
  */
 declare(strict_types = 1);
 
-namespace HipexDeployConfiguration\Command\Deploy;
+namespace HipexDeployConfiguration\ServerConfiguration;
 
-use HipexDeployConfiguration\DeployCommand;
+use HipexDeployConfiguration\ServerRoleConfigurableInterface;
+use HipexDeployConfiguration\ServerRoleConfigurableTrait;
 
-class NginxConfiguration extends DeployCommand
+class NginxConfiguration implements ServerConfigurationInterface, ServerRoleConfigurableInterface
 {
+    use ServerRoleConfigurableTrait;
+
     /**
      * @var string
      */

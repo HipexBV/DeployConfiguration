@@ -8,9 +8,13 @@ declare(strict_types = 1);
 namespace HipexDeployConfiguration\Command\Deploy;
 
 use HipexDeployConfiguration\ServerRole;
+use HipexDeployConfiguration\ServerRoleConfigurableInterface;
+use HipexDeployConfiguration\ServerRoleConfigurableTrait;
 
-class VarnishConfiguration extends SupervisorConfiguration
+class VarnishService implements PlatformServiceInterface, ServerRoleConfigurableInterface
 {
+    use ServerRoleConfigurableTrait;
+
     /**
      * Defaults
      */
@@ -65,7 +69,7 @@ class VarnishConfiguration extends SupervisorConfiguration
         $this->configFile = $configFile;
         $this->setServerRoles([ServerRole::VARNISH]);
 
-        parent::__construct('varnish', '');
+        //parent::__construct('varnish', '');
     }
 
     /**
@@ -73,6 +77,7 @@ class VarnishConfiguration extends SupervisorConfiguration
      */
     public function getSupervisorCommand()
     {
+        //@todo move to deploy image
         return implode(' ', array_merge([
             'varnishd',
             '-p feature=+esi_ignore_other_elements',
