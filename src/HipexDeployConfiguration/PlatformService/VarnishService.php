@@ -39,11 +39,6 @@ class VarnishService implements PlatformServiceInterface, ServerRoleConfigurable
     private $backendPort;
 
     /**
-     * @var array|string[]
-     */
-    private $arguments;
-
-    /**
      * @var string
      */
     private $configFile;
@@ -53,43 +48,19 @@ class VarnishService implements PlatformServiceInterface, ServerRoleConfigurable
      * @param int      $frontendPort
      * @param int      $backendPort
      * @param string   $configFile
-     * @param string[] $configuration
      */
     public function __construct(
         $memory = self::DEFAULT_MEMORY,
         $frontendPort = self::DEFAULT_FRONTEND_PORT,
         $backendPort = self::DEFAULT_BACKEND_PORT,
-        $configFile = self::DEFAULT_CONFIG_FILE,
-        $configuration = []
+        $configFile = self::DEFAULT_CONFIG_FILE
     ) {
         $this->memory = $memory;
         $this->frontendPort = $frontendPort;
         $this->backendPort = $backendPort;
-        $this->arguments = $configuration;
         $this->configFile = $configFile;
+
         $this->setServerRoles([ServerRole::VARNISH]);
-
-        //parent::__construct('varnish', '');
-    }
-
-    /**
-     * @return string
-     */
-    public function getSupervisorCommand()
-    {
-        //@todo move to deploy image
-        return implode(' ', array_merge([
-            'varnishd',
-            '-p feature=+esi_ignore_other_elements',
-            '-p vcc_allow_inline_c=on',
-            '-a :' . $this->frontendPort,
-            '-T localhost:' . $this->backendPort,
-            '-f {{domain_path}}/var/etc/varnish.vcl',
-            '-S {{domain_path}}/var/etc/varnish.secret',
-            '-s malloc,' . $this->memory,
-            '-F',
-            '-n {{domain_path}}/var/run',
-        ], $this->arguments));
     }
 
     /**

@@ -19,7 +19,6 @@ class RedisService implements PlatformServiceInterface, ServerRoleConfigurableIn
      * Defaults
      */
     const DEFAULT_MEMORY = '1024m';
-    const DEFAULT_LISTEN = '{{domain_path}}var/run/redis.sock';
 
     /**
      * @var string
@@ -27,24 +26,14 @@ class RedisService implements PlatformServiceInterface, ServerRoleConfigurableIn
     private $maxMemory;
 
     /**
-     * @var string
+     * @var int
      */
-    private $listen;
-
-    /**
-     * @var array|string[]
-     */
-    private $settings;
-
-    /**
-     * @var string|null
-     */
-    private $master;
+    private $snapshotSaveFrequency = 60;
 
     /**
      * @var array
      */
-    private $redisConfiguration;
+    private $configIncludes;
 
     /**
      * @var string
@@ -52,38 +41,28 @@ class RedisService implements PlatformServiceInterface, ServerRoleConfigurableIn
     private $identifier;
 
     /**
-     * @param string   $maxMemory
-     * @param string   $listen
-     * @param string   $master
      * @param string   $identifier
-     * @param string[] $redisConfiguration
+     * @param string   $maxMemory
+     * @param string[] $configIncludes
      */
     public function __construct(
-        string $maxMemory = self::DEFAULT_MEMORY,
-        string $listen = self::DEFAULT_LISTEN,
-        string $master = null,
         string $identifier = 'backend',
-        array $redisConfiguration = []
+        string $maxMemory = self::DEFAULT_MEMORY,
+        array $configIncludes = []
     ) {
         $this->maxMemory = $maxMemory;
-        $this->listen = $listen;
-        $this->master = $master;
-        $this->redisConfiguration = $redisConfiguration;
         $this->identifier = $identifier;
+        $this->configIncludes = $configIncludes;
 
         $this->setServerRoles([ServerRole::REDIS]);
-        $this->setWorkingDirectory(sprintf('{{redis/%s/directory}}', $this->identifier));
+    }
 
-        /*parent::__construct(
-            'redis-' . $identifier,
-            "logrun redis-${identifier} redis-server -c {{redis/${identifier}/config-file}}",
-            1,
-            [
-                'stdout_logfile' => "{{redis/${identifier}/log-file}}",
-                'redirect_stderr' => 'true',
-                'stdout_logfile_maxbytes' => '50MB',
-            ]
-        );*/
+    /**
+     * @return string
+     */
+    public function getIdentifier(): string
+    {
+        return $this->identifier;
     }
 
     /**
@@ -95,42 +74,26 @@ class RedisService implements PlatformServiceInterface, ServerRoleConfigurableIn
     }
 
     /**
-     * @return string
-     */
-    public function getListen(): string
-    {
-        return $this->listen;
-    }
-
-    /**
-     * @return array|string[]
-     */
-    public function getSettings()
-    {
-        return $this->settings;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getMaster(): ?string
-    {
-        return $this->master;
-    }
-
-    /**
      * @return array
      */
-    public function getRedisConfiguration(): array
+    public function getConfigIncludes(): array
     {
-        return $this->redisConfiguration;
+        return $this->configIncludes;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getIdentifier(): string
+    public function getSnapshotSaveFrequency(): int
     {
-        return $this->identifier;
+        return $this->snapshotSaveFrequency;
+    }
+
+    /**
+     * @param int $snapshotSaveFrequency
+     */
+    public function setSnapshotSaveFrequency(int $snapshotSaveFrequency): void
+    {
+        $this->snapshotSaveFrequency = $snapshotSaveFrequency;
     }
 }
