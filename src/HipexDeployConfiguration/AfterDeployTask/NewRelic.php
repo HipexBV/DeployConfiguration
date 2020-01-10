@@ -8,10 +8,21 @@ namespace HipexDeployConfiguration\AfterDeployTask;
 
 use HipexDeployConfiguration\Exception\EnvironmentVariableNotDefinedException;
 use function HipexDeployConfiguration\getenv;
+use HipexDeployConfiguration\ServerRoleConfigurableInterface;
+use HipexDeployConfiguration\ServerRoleConfigurableTrait;
+use HipexDeployConfiguration\StageConfigurableInterface;
+use HipexDeployConfiguration\StageConfigurableTrait;
 use HipexDeployConfiguration\TaskConfigurationInterface;
 
-class NewRelic implements TaskConfigurationInterface
+class NewRelic implements
+    TaskConfigurationInterface,
+    ServerRoleConfigurableInterface,
+    StageConfigurableInterface
 {
+    use ServerRoleConfigurableTrait;
+
+    use StageConfigurableTrait;
+
     /**
      * @var string
      */

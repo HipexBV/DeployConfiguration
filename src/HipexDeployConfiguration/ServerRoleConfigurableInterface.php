@@ -21,4 +21,9 @@ interface ServerRoleConfigurableInterface
      * @return self
      */
     public function addRole(string $role);
+
+    /**
+     * @return string[]
+     */
+    public function getServerRoles(): array;
 }

@@ -8,11 +8,18 @@ namespace HipexDeployConfiguration\PlatformConfiguration;
 
 use HipexDeployConfiguration\ServerRoleConfigurableInterface;
 use HipexDeployConfiguration\ServerRoleConfigurableTrait;
+use HipexDeployConfiguration\StageConfigurableInterface;
+use HipexDeployConfiguration\StageConfigurableTrait;
 use HipexDeployConfiguration\TaskConfigurationInterface;
 
-class NginxConfiguration implements TaskConfigurationInterface, ServerRoleConfigurableInterface
+class NginxConfiguration implements
+    TaskConfigurationInterface,
+    ServerRoleConfigurableInterface,
+    StageConfigurableInterface
 {
     use ServerRoleConfigurableTrait;
+
+    use StageConfigurableTrait;
 
     /**
      * @var string

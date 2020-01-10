@@ -112,6 +112,11 @@ class Configuration
     private $publicFolder = 'pub';
 
     /**
+     * @var array
+     */
+    private $postInitializeCallbacks = [];
+
+    /**
      * ServerConfiguration constructor.
      *
      * @param string $gitRepository
@@ -428,5 +433,32 @@ class Configuration
     public function setPublicFolder(string $publicFolder): void
     {
         $this->publicFolder = $publicFolder;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPostInitializeCallbacks(): array
+    {
+        return $this->postInitializeCallbacks;
+    }
+
+    /**
+     * @param array $callbacks
+     */
+    public function setPostInitializeCallbacks(array $callbacks): void
+    {
+        $this->postInitializeCallbacks = $callbacks;
+    }
+
+    /**
+     * Add callbacks you want to excecute after all deploy tasks are initialized
+     * This allows you to reconfigure a deployer task
+     *
+     * @param callable $callback
+     */
+    public function addPostInitializeCallback(callable $callback)
+    {
+        $this->postInitializeCallbacks[] = $callback;
     }
 }
