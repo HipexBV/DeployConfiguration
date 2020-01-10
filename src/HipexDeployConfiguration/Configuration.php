@@ -8,8 +8,6 @@ namespace HipexDeployConfiguration;
 
 use HipexDeployConfiguration\Command\Command;
 use HipexDeployConfiguration\Command\DeployCommand;
-use HipexDeployConfiguration\PlatformService\PlatformServiceInterface;
-use HipexDeployConfiguration\PlatformConfiguration\PlatformConfigurationInterface;
 
 class Configuration
 {
@@ -322,24 +320,24 @@ class Configuration
     public function setAfterDeployTasks($afterDeployTasks): self
     {
         $this->afterDeployTasks = [];
-        foreach ($afterDeployTasks as $command) {
-            $this->addAfterDeployCommand($command);
+        foreach ($afterDeployTasks as $taskConfig) {
+            $this->addAfterDeployTask($taskConfig);
         }
         return $this;
     }
 
     /**
-     * @param Command $command
+     * @param TaskConfigurationInterface $taskConfig
      * @return $this
      */
-    public function addAfterDeployCommand(Command $command): self
+    public function addAfterDeployTask(TaskConfigurationInterface $taskConfig): self
     {
-        $this->afterDeployTasks[] = $command;
+        $this->afterDeployTasks[] = $taskConfig;
         return $this;
     }
 
     /**
-     * @return PlatformConfigurationInterface[]
+     * @return TaskConfigurationInterface[]
      */
     public function getPlatformConfigurations(): array
     {
@@ -347,30 +345,30 @@ class Configuration
     }
 
     /**
-     * @param PlatformConfigurationInterface[] $platformConfigurations
+     * @param TaskConfigurationInterface[] $platformConfigurations
      * @return $this
      */
     public function setPlatformConfigurations(array $platformConfigurations): self
     {
         $this->platformConfigurations = [];
         foreach ($platformConfigurations as $serverConfiguration) {
-            $this->addServerConfiguration($serverConfiguration);
+            $this->addPlatformConfiguration($serverConfiguration);
         }
         return $this;
     }
 
     /**
-     * @param PlatformConfigurationInterface $platformConfiguration
+     * @param TaskConfigurationInterface $platformConfiguration
      * @return Configuration
      */
-    public function addPlatformConfiguration(PlatformConfigurationInterface $platformConfiguration): self
+    public function addPlatformConfiguration(TaskConfigurationInterface $platformConfiguration): self
     {
         $this->platformConfigurations[] = $platformConfiguration;
         return $this;
     }
 
     /**
-     * @return PlatformServiceInterface[]
+     * @return TaskConfigurationInterface[]
      */
     public function getPlatformServices(): array
     {
@@ -378,7 +376,7 @@ class Configuration
     }
 
     /**
-     * @param PlatformServiceInterface[] $platformServices
+     * @param TaskConfigurationInterface[] $platformServices
      * @return $this
      */
     public function setPlatformServices(array $platformServices): self
@@ -391,10 +389,10 @@ class Configuration
     }
 
     /**
-     * @param PlatformServiceInterface $platformService
+     * @param TaskConfigurationInterface $platformService
      * @return Configuration
      */
-    public function addPlatformService(PlatformServiceInterface $platformService): self
+    public function addPlatformService(TaskConfigurationInterface $platformService): self
     {
         $this->platformServices[] = $platformService;
         return $this;

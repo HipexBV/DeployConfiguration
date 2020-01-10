@@ -9,8 +9,9 @@ namespace HipexDeployConfiguration\PlatformService;
 use HipexDeployConfiguration\ServerRole;
 use HipexDeployConfiguration\ServerRoleConfigurableInterface;
 use HipexDeployConfiguration\ServerRoleConfigurableTrait;
+use HipexDeployConfiguration\TaskConfigurationInterface;
 
-class RedisService implements PlatformServiceInterface, ServerRoleConfigurableInterface
+class RedisService implements TaskConfigurationInterface, ServerRoleConfigurableInterface
 {
     use ServerRoleConfigurableTrait;
 

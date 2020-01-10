@@ -6,11 +6,11 @@
 
 namespace HipexDeployConfiguration\AfterDeployTask;
 
-use HipexDeployConfiguration\Command;
 use HipexDeployConfiguration\Exception\EnvironmentVariableNotDefinedException;
 use function HipexDeployConfiguration\getenv;
+use HipexDeployConfiguration\TaskConfigurationInterface;
 
-class SlackWebhook implements AfterDeployTaskInterface
+class SlackWebhook implements TaskConfigurationInterface
 {
     /**
      * @var string

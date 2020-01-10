@@ -6,11 +6,11 @@
 
 namespace HipexDeployConfiguration\AfterDeployTask;
 
-use HipexDeployConfiguration\Command;
 use HipexDeployConfiguration\Exception\EnvironmentVariableNotDefinedException;
 use function HipexDeployConfiguration\getenv;
+use HipexDeployConfiguration\TaskConfigurationInterface;
 
-class EmailNotification implements AfterDeployTaskInterface
+class EmailNotification implements TaskConfigurationInterface
 {
     /**
      * @var array|string[]

@@ -8,8 +8,9 @@ namespace HipexDeployConfiguration\PlatformConfiguration;
 
 use HipexDeployConfiguration\ServerRoleConfigurableInterface;
 use HipexDeployConfiguration\ServerRoleConfigurableTrait;
+use HipexDeployConfiguration\TaskConfigurationInterface;
 
-class CronConfiguration implements PlatformConfigurationInterface, ServerRoleConfigurableInterface
+class CronConfiguration implements TaskConfigurationInterface, ServerRoleConfigurableInterface
 {
     use ServerRoleConfigurableTrait;
 

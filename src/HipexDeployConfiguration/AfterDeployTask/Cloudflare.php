@@ -8,8 +8,9 @@ namespace HipexDeployConfiguration\AfterDeployTask;
 
 use HipexDeployConfiguration\Exception\EnvironmentVariableNotDefinedException;
 use function HipexDeployConfiguration\getenv;
+use HipexDeployConfiguration\TaskConfigurationInterface;
 
-class Cloudflare implements AfterDeployTaskInterface
+class Cloudflare implements TaskConfigurationInterface
 {
     /**
      * @var string

@@ -6,7 +6,9 @@
 
 namespace HipexDeployConfiguration\Command;
 
-class Command
+use HipexDeployConfiguration\TaskConfigurationInterface;
+
+class Command implements TaskConfigurationInterface
 {
     /**
      * Command to execute.

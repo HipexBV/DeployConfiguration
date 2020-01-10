@@ -8,8 +8,9 @@ namespace HipexDeployConfiguration\PlatformConfiguration;
 
 use HipexDeployConfiguration\ServerRoleConfigurableInterface;
 use HipexDeployConfiguration\ServerRoleConfigurableTrait;
+use HipexDeployConfiguration\TaskConfigurationInterface;
 
-class NginxConfiguration implements PlatformConfigurationInterface, ServerRoleConfigurableInterface
+class NginxConfiguration implements TaskConfigurationInterface, ServerRoleConfigurableInterface
 {
     use ServerRoleConfigurableTrait;
 

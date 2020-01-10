@@ -8,8 +8,9 @@ namespace HipexDeployConfiguration\AfterDeployTask;
 
 use HipexDeployConfiguration\Exception\EnvironmentVariableNotDefinedException;
 use function HipexDeployConfiguration\getenv;
+use HipexDeployConfiguration\TaskConfigurationInterface;
 
-class NewRelic implements AfterDeployTaskInterface
+class NewRelic implements TaskConfigurationInterface
 {
     /**
      * @var string
