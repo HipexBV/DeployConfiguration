@@ -6,10 +6,7 @@
 
 namespace HipexDeployConfiguration\Command\Build\Magento2;
 
-use function Deployer\run;
-use function Deployer\set;
-use function Deployer\test;
-use HipexDeployConfiguration\Command;
+use HipexDeployConfiguration\Command\Command;
 
 class SetupStaticContentDeploy extends Command
 {

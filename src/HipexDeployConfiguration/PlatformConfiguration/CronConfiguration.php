@@ -4,12 +4,12 @@
  * @copyright (c) Hipex B.V. 2020
  */
 
-namespace HipexDeployConfiguration\ServerConfiguration;
+namespace HipexDeployConfiguration\PlatformConfiguration;
 
 use HipexDeployConfiguration\ServerRoleConfigurableInterface;
 use HipexDeployConfiguration\ServerRoleConfigurableTrait;
 
-class CronConfiguration implements ServerConfigurationInterface, ServerRoleConfigurableInterface
+class CronConfiguration implements PlatformConfigurationInterface, ServerRoleConfigurableInterface
 {
     use ServerRoleConfigurableTrait;
 

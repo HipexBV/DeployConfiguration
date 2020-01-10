@@ -8,7 +8,7 @@ namespace HipexDeployConfiguration\Command\Build\Magento2;
 
 use function Deployer\test;
 use function Deployer\run;
-use HipexDeployConfiguration\Command;
+use HipexDeployConfiguration\Command\Command;
 
 class SetupDiCompile extends Command
 {

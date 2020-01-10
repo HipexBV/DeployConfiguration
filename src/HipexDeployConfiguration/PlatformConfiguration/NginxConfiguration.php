@@ -4,12 +4,12 @@
  * @copyright (c) Hipex B.V. 2020
  */
 
-namespace HipexDeployConfiguration\ServerConfiguration;
+namespace HipexDeployConfiguration\PlatformConfiguration;
 
 use HipexDeployConfiguration\ServerRoleConfigurableInterface;
 use HipexDeployConfiguration\ServerRoleConfigurableTrait;
 
-class NginxConfiguration implements ServerConfigurationInterface, ServerRoleConfigurableInterface
+class NginxConfiguration implements PlatformConfigurationInterface, ServerRoleConfigurableInterface
 {
     use ServerRoleConfigurableTrait;
 

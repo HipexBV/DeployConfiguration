@@ -6,8 +6,10 @@
 
 namespace HipexDeployConfiguration;
 
-use HipexDeployConfiguration\Command\Deploy\PlatformServiceInterface;
-use HipexDeployConfiguration\ServerConfiguration\ServerConfigurationInterface;
+use HipexDeployConfiguration\Command\Command;
+use HipexDeployConfiguration\Command\DeployCommand;
+use HipexDeployConfiguration\PlatformService\PlatformServiceInterface;
+use HipexDeployConfiguration\PlatformConfiguration\PlatformConfigurationInterface;
 
 class Configuration
 {
@@ -85,14 +87,14 @@ class Configuration
      *
      * @var Command[]
      */
-    private $afterDeployCommands = [];
+    private $afterDeployTasks = [];
 
     /**
      * Server configurations to automatically provision from your repository to the Hipex platform
      *
      * @var array
      */
-    private $serverConfigurations = [];
+    private $platformConfigurations = [];
 
     /**
      * Addition services to run
@@ -308,19 +310,19 @@ class Configuration
     /**
      * @return Command
      */
-    public function getAfterDeployCommands(): array
+    public function getAfterDeployTasks(): array
     {
-        return $this->afterDeployCommands;
+        return $this->afterDeployTasks;
     }
 
     /**
-     * @param Command[] $afterDeployCommands
+     * @param Command[] $afterDeployTasks
      * @return $this
      */
-    public function setAfterDeployCommands($afterDeployCommands): self
+    public function setAfterDeployTasks($afterDeployTasks): self
     {
-        $this->afterDeployCommands = [];
-        foreach ($afterDeployCommands as $command) {
+        $this->afterDeployTasks = [];
+        foreach ($afterDeployTasks as $command) {
             $this->addAfterDeployCommand($command);
         }
         return $this;
@@ -332,38 +334,38 @@ class Configuration
      */
     public function addAfterDeployCommand(Command $command): self
     {
-        $this->afterDeployCommands[] = $command;
+        $this->afterDeployTasks[] = $command;
         return $this;
     }
 
     /**
-     * @return ServerConfigurationInterface[]
+     * @return PlatformConfigurationInterface[]
      */
-    public function getServerConfigurations(): array
+    public function getPlatformConfigurations(): array
     {
-        return $this->serverConfigurations;
+        return $this->platformConfigurations;
     }
 
     /**
-     * @param ServerConfigurationInterface[] $serverConfigurations
+     * @param PlatformConfigurationInterface[] $platformConfigurations
      * @return $this
      */
-    public function setServerConfigurations(array $serverConfigurations): self
+    public function setPlatformConfigurations(array $platformConfigurations): self
     {
-        $this->serverConfigurations = [];
-        foreach ($serverConfigurations as $serverConfiguration) {
+        $this->platformConfigurations = [];
+        foreach ($platformConfigurations as $serverConfiguration) {
             $this->addServerConfiguration($serverConfiguration);
         }
         return $this;
     }
 
     /**
-     * @param ServerConfigurationInterface $serverConfiguration
+     * @param PlatformConfigurationInterface $platformConfiguration
      * @return Configuration
      */
-    public function addServerConfiguration(ServerConfigurationInterface $serverConfiguration): self
+    public function addPlatformConfiguration(PlatformConfigurationInterface $platformConfiguration): self
     {
-        $this->serverConfigurations[] = $serverConfiguration;
+        $this->platformConfigurations[] = $platformConfiguration;
         return $this;
     }
 

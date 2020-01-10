@@ -4,7 +4,7 @@
  * @copyright (c) Hipex B.V. 2018
  */
 
-namespace HipexDeployConfiguration;
+namespace HipexDeployConfiguration\Command;
 
 class Command
 {
