@@ -27,7 +27,7 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     /**
      * @var string
      */
-    private $maxMemory;
+    private $maxMemory = self::DEFAULT_MEMORY;
 
     /**
      * @var int
@@ -45,19 +45,11 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     private $identifier;
 
     /**
-     * @param string   $identifier
-     * @param string   $maxMemory
-     * @param string[] $configIncludes
+     * @param string $identifier
      */
-    public function __construct(
-        string $identifier = 'backend',
-        string $maxMemory = self::DEFAULT_MEMORY,
-        array $configIncludes = []
-    ) {
-        $this->maxMemory = $maxMemory;
+    public function __construct(string $identifier = 'backend')
+    {
         $this->identifier = $identifier;
-        $this->configIncludes = $configIncludes;
-
         $this->setServerRoles([ServerRole::REDIS]);
     }
 
@@ -78,11 +70,27 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     }
 
     /**
+     * @param string $maxMemory
+     */
+    public function setMaxMemory(string $maxMemory): void
+    {
+        $this->maxMemory = $maxMemory;
+    }
+
+    /**
      * @return array
      */
     public function getConfigIncludes(): array
     {
         return $this->configIncludes;
+    }
+
+    /**
+     * @param array $configIncludes
+     */
+    public function setConfigIncludes(array $configIncludes): void
+    {
+        $this->configIncludes = $configIncludes;
     }
 
     /**
