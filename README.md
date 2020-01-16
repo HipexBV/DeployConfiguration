@@ -97,7 +97,7 @@ docker run -it -e SSH_PRIVATE_KEY -e DEPLOY_COMPOSER_AUTH -v `pwd`:/build hipex/
 ```
 
 ## Deployer variables
-Deployer exposes allot of variables you can fetch using the `\Deployer\get` or any other deployer method. Please see
+Deployer exposes a lot of variables you can fetch using the `\Deployer\get` or any other deployer method. Please see
 https://deployer.org/docs/configuration for a more detailed explenation. On top of the default variables exposed by 
 deployer the Hipex image adds the following:
 
@@ -109,35 +109,64 @@ deployer the Hipex image adds the following:
 - `release_message` Markdown formatted release message, including branch, commit and merged branches. 
 - `commit_sha` Commit sha1 reference
 
-## Commonly used commands
+## Commonly used configurations
 
-### \HipexDeployConfiguration\Command\Deploy\NginxConfiguration
+Most of the configurations can be specifically set for a given serverrole and/or stage.
+
+```
+$nginxConfiguration = (new NginxConfiguration('/etc/nginx/production'))
+  ->onServerRoles([ServerRole::APPLICATION])
+  ->onStage('production')
+$configuration->addPlatformConfiguration($nginxConfiguration)
+```
+
+### PlatformConfigurations
+
+This kind of configuration objects are used to setup application configurations on the Hipex platform
+
+Can be registered with the `addPlatformConfiguration` method on the main configuration object
+
+#### \HipexDeployConfiguration\PlatformConfiguration\NginxConfiguration
 Synchronise nginx configuration from repository to server
 
-Arguments:
+Mandatory arguments:
 - `sourceFolder` Relative path to the nginx configuration in project. (default `etc/nginx/`)
 
-### \HipexDeployConfiguration\Command\Deploy\CronConfiguration
+#### \HipexDeployConfiguration\PlatformConfiguration\CronConfiguration
 Replaces crontab with cron file from git. Will prepend some extra env variables to use in cronjobs:
 
 - `PATH`, bash configured `PATH` variable at deploy time.
 - `APP_ROOT` Root of the current release `{{release_path}}`
 
-Arguments:
+Mandatory arguments:
 - `sourceFifle` Relative path to the crontab file. (default `etc/cron`) 
 
-### \HipexDeployConfiguration\Command\Deploy\Magento2\JobqueueConsumer
+#### \HipexDeployConfiguration\PlatformConfiguration\Magento2\JobqueueConsumer
 Create a supervisord managed jobqueue consumer on server with role `ServerRole::APPLICATION_FIRST`.
 
-Arguments:
+Mandatory arguments:
 - `consumer` Name of the consumer for example `async.operations.all`
 - `workers` Number of consumers to run  (default `1`)
 
+### \HipexDeployConfiguration\PlatformConfiguration\SupervisorConfiguration
+Synchronize a folder with supervisor configuration files
 
-### \HipexDeployConfiguration\Command\Deploy\VarnishConfiguration
+Mandatory arguments:
+- `name` Name of the service
+- `supervisorCommand` The command to run
+- `workers` Number of workers (default `1`)
+- `configuration` Array of extra key value pairs with configuration settings for supervisor
+
+### Platform services
+
+This kind of configuration objects are used to define extra services to run on the Hipex servers.
+
+Can be registered with the `addPlatformService` method on the main configuration object
+
+### \HipexDeployConfiguration\PlatformService\VarnishConfiguration
 Create a varnish instance managed by supervisord on server with role `ServerRole::VARNISH`.
 
-Arguments:
+Mandatory arguments:
 - `memory` Memory usage (default `1024m`)
 - `frontendPort` Default varnish frontend port (default `6181`)
 - `adminPort` Default varnish admin port (default `6182`)
@@ -145,21 +174,11 @@ Arguments:
 - `arguments` Extra arguments used to start varnish
 
 
-### \HipexDeployConfiguration\Command\Deploy\RedisConfiguration
+### \HipexDeployConfiguration\PlatformService\RedisConfiguration
 Create a redis instance managed by supervisord on server with role `ServerRole::REDIS`.
 
-Arguments:
+Mandatory arguments:
 - `maxMemory` Max memory usage (default `1024m`)
 - `listen` Listen to unix socket or ip:port (default `{{domain_path}}var/run/redis.sock`)
 - `master` Redis instance is slave of configuration
 - `configuration` Key value pairs with extra configuration for redis config
-
-
-### \HipexDeployConfiguration\Command\Deploy\SupervisorConfiguration
-Create supervisor service configuration for long running process like varnish or PWA nodejs service.
-
-Arguments:
-- `name` Name of the service
-- `supervisorCommand` The command to run
-- `workers` Number of workers (default `1`)
-- `configuration` Array of extra key value pairs with configuration settings for supervisor
