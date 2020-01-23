@@ -112,6 +112,11 @@ class Configuration
     private $publicFolder = 'pub';
 
     /**
+     * @var string
+     */
+    private $buildArchiveFile = 'build/build.tgz';
+
+    /**
      * @var array
      */
     private $postInitializeCallbacks = [];
@@ -460,5 +465,21 @@ class Configuration
     public function addPostInitializeCallback(callable $callback)
     {
         $this->postInitializeCallbacks[] = $callback;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuildArchiveFile(): string
+    {
+        return $this->buildArchiveFile;
+    }
+
+    /**
+     * @param string $buildArchiveFile
+     */
+    public function setBuildArchiveFile(string $buildArchiveFile): void
+    {
+        $this->buildArchiveFile = $buildArchiveFile;
     }
 }
