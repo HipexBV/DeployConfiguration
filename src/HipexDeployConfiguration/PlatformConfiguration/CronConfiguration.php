@@ -12,6 +12,14 @@ use HipexDeployConfiguration\StageConfigurableInterface;
 use HipexDeployConfiguration\StageConfigurableTrait;
 use HipexDeployConfiguration\TaskConfigurationInterface;
 
+/**
+ * `PATH` and `APPLICATION_ROOT` are automatically added to cron environment variables. So you can simplify your cronjobs
+ *
+ * For example:
+ * ```
+ * * * * * * cd $APPLICATION_ROOT && logrun mycron php bin/console cron
+ * ```
+ */
 class CronConfiguration implements
     TaskConfigurationInterface,
     ServerRoleConfigurableInterface,
@@ -45,21 +53,5 @@ class CronConfiguration implements
     public function getSourceFile()
     {
         return $this->sourceFile;
-    }
-
-    /**
-     * @param string $path
-     */
-    public function setPathEnvironmentVariable(string $path)
-    {
-        $this->pathEnvVar = $path;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPathEnvironmentVariable(): string
-    {
-        return $this->pathEnvVar;
     }
 }

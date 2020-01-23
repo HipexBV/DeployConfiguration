@@ -10,6 +10,17 @@ use function Deployer\run;
 use function Deployer\test;
 use HipexDeployConfiguration\Command\Command;
 
+/**
+ * Runs composer install during build.
+ *
+ * Will use environment variable `DEPLOY_COMPOSER_AUTH` as a base64 encoded content of `auth.json`.
+ *
+ * Can be generated using:
+ *```bash
+ *cat auth.json | base64
+ *```
+ *
+ */
 class Composer extends Command
 {
     /**
@@ -32,7 +43,7 @@ class Composer extends Command
     /**
      * Composer constructor.
      *
-     * @param string[] $installArguments
+     * @param string[] $installArguments Arguments passed to `install` command of composer
      */
     public function __construct(array $installArguments = self::DEFAULT_INSTALL_ARGUMENTS)
     {
