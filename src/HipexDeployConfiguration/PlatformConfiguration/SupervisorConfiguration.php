@@ -12,6 +12,9 @@ use HipexDeployConfiguration\StageConfigurableInterface;
 use HipexDeployConfiguration\StageConfigurableTrait;
 use HipexDeployConfiguration\TaskConfigurationInterface;
 
+/**
+ * Deploys supervisor configurations from your repository to the server
+ */
 class SupervisorConfiguration implements
     TaskConfigurationInterface,
     ServerRoleConfigurableInterface,
@@ -27,7 +30,7 @@ class SupervisorConfiguration implements
     private $sourceFolder;
 
     /**
-     * @param string $sourceFolder
+     * @param string $sourceFolder Directory containing the supervisor configs in your repository
      */
     public function __construct($sourceFolder = 'etc/supervisor/')
     {

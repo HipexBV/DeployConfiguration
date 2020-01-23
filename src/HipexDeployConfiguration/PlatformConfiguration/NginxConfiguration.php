@@ -12,6 +12,9 @@ use HipexDeployConfiguration\StageConfigurableInterface;
 use HipexDeployConfiguration\StageConfigurableTrait;
 use HipexDeployConfiguration\TaskConfigurationInterface;
 
+/**
+ * Deploys nginx configuration from your repository to the server
+ */
 class NginxConfiguration implements
     TaskConfigurationInterface,
     ServerRoleConfigurableInterface,
@@ -27,7 +30,7 @@ class NginxConfiguration implements
     private $sourceFolder;
 
     /**
-     * @param string $sourceFolder
+     * @param string $sourceFolder Location of nginx source files in your repository
      */
     public function __construct($sourceFolder = 'etc/nginx/')
     {

@@ -13,6 +13,8 @@ use HipexDeployConfiguration\StageConfigurableTrait;
 use HipexDeployConfiguration\TaskConfigurationInterface;
 
 /**
+ * Deploys cron configuration from your repository to the server
+ *
  * `PATH` and `APPLICATION_ROOT` are automatically added to cron environment variables. So you can simplify your cronjobs
  *
  * For example:
@@ -40,7 +42,7 @@ class CronConfiguration implements
     private $pathEnvVar = '/usr/local/bin:/usr/bin';
 
     /**
-     * @param string $sourceFile
+     * @param string $sourceFile Location of cron file in your repository
      */
     public function __construct($sourceFile = 'etc/cron')
     {
