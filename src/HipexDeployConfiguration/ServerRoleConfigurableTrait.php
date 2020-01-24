@@ -1,15 +1,17 @@
 <?php
 /**
  * @author Hipex <info@hipex.io>
- * @copyright (c) Hipex B.V. 2018
+ * @copyright (c) Hipex B.V. 2020
  */
+declare(strict_types = 1);
 
 namespace HipexDeployConfiguration;
 
-class DeployCommand extends Command
+
+trait ServerRoleConfigurableTrait
 {
     /**
-     * When set the command is only run on servers with one of the provided roles.
+     * When set the configuration is only used on servers with one of the provided roles.
      *
      * @var string[]
      */

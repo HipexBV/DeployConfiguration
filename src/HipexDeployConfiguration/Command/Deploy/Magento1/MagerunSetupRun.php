@@ -6,7 +6,7 @@
 
 namespace HipexDeployConfiguration\Command\Deploy\Magento1;
 
-use HipexDeployConfiguration\DeployCommand;
+use HipexDeployConfiguration\Command\DeployCommand;
 use HipexDeployConfiguration\ServerRole;
 
 class MagerunSetupRun extends DeployCommand

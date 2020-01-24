@@ -4,7 +4,7 @@
  * @copyright (c) Hipex B.V. ${year}
  */
 
-namespace HipexDeployConfiguration\Configuration;
+namespace HipexDeployConfiguration\ApplicationTemplate;
 
 use HipexDeployConfiguration\Configuration;
 use HipexDeployConfiguration\Command;

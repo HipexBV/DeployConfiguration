@@ -4,14 +4,25 @@
  * @copyright (c) Hipex B.V. 2018
  */
 
-namespace HipexDeployConfiguration\Command\After;
+namespace HipexDeployConfiguration\AfterDeployTask;
 
-use HipexDeployConfiguration\Command;
 use HipexDeployConfiguration\Exception\EnvironmentVariableNotDefinedException;
 use function HipexDeployConfiguration\getenv;
+use HipexDeployConfiguration\ServerRoleConfigurableInterface;
+use HipexDeployConfiguration\ServerRoleConfigurableTrait;
+use HipexDeployConfiguration\StageConfigurableInterface;
+use HipexDeployConfiguration\StageConfigurableTrait;
+use HipexDeployConfiguration\TaskConfigurationInterface;
 
-class EmailNotification extends Command
+class EmailNotification implements
+    TaskConfigurationInterface,
+    ServerRoleConfigurableInterface,
+    StageConfigurableInterface
 {
+    use ServerRoleConfigurableTrait;
+
+    use StageConfigurableTrait;
+
     /**
      * @var array|string[]
      */
@@ -49,7 +60,6 @@ class EmailNotification extends Command
      */
     public function __construct(array $email = null, string $emailFrom = null, string $smtpServer = null, string $smtpUser = null, string $smtpPassword = null)
     {
-        parent::__construct();
         $this->email = $email ?: getenv('NOTIFICATION_EMAIL_TO');
         $this->emailFrom = $emailFrom ?: getenv('NOTIFICATION_EMAIL_FROM');
         $this->smtpServer = $smtpServer ?: getenv('SMTP_SERVER');

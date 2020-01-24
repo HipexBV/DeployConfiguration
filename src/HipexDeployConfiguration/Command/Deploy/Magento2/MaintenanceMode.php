@@ -9,7 +9,7 @@ namespace HipexDeployConfiguration\Command\Deploy\Magento2;
 use function Deployer\has;
 use function Deployer\run;
 use function Deployer\test;
-use HipexDeployConfiguration\DeployCommand;
+use HipexDeployConfiguration\Command\DeployCommand;
 use HipexDeployConfiguration\ServerRole;
 
 class MaintenanceMode extends DeployCommand

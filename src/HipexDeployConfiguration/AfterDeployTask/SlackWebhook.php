@@ -4,14 +4,25 @@
  * @copyright (c) Hipex B.V. 2018
  */
 
-namespace HipexDeployConfiguration\Command\After;
+namespace HipexDeployConfiguration\AfterDeployTask;
 
-use HipexDeployConfiguration\Command;
 use HipexDeployConfiguration\Exception\EnvironmentVariableNotDefinedException;
 use function HipexDeployConfiguration\getenv;
+use HipexDeployConfiguration\ServerRoleConfigurableInterface;
+use HipexDeployConfiguration\ServerRoleConfigurableTrait;
+use HipexDeployConfiguration\StageConfigurableInterface;
+use HipexDeployConfiguration\StageConfigurableTrait;
+use HipexDeployConfiguration\TaskConfigurationInterface;
 
-class SlackWebhook extends Command
+class SlackWebhook implements
+    TaskConfigurationInterface,
+    ServerRoleConfigurableInterface,
+    StageConfigurableInterface
 {
+    use ServerRoleConfigurableTrait;
+
+    use StageConfigurableTrait;
+
     /**
      * @var string
      */
@@ -25,7 +36,6 @@ class SlackWebhook extends Command
      */
     public function __construct(string $webHook = null)
     {
-        parent::__construct();
         $this->webHook = $webHook ?: getenv('SLACK_WEBHOOK');
     }
 

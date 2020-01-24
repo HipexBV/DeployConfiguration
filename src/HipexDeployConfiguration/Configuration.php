@@ -6,6 +6,9 @@
 
 namespace HipexDeployConfiguration;
 
+use HipexDeployConfiguration\Command\Command;
+use HipexDeployConfiguration\Command\DeployCommand;
+
 class Configuration
 {
     /**
@@ -82,7 +85,21 @@ class Configuration
      *
      * @var Command[]
      */
-    private $afterDeployCommands = [];
+    private $afterDeployTasks = [];
+
+    /**
+     * Server configurations to automatically provision from your repository to the Hipex platform
+     *
+     * @var array
+     */
+    private $platformConfigurations = [];
+
+    /**
+     * Addition services to run
+     *
+     * @var array
+     */
+    private $platformServices = [];
 
     /**
      * @var string
@@ -93,6 +110,16 @@ class Configuration
      * @var string
      */
     private $publicFolder = 'pub';
+
+    /**
+     * @var string
+     */
+    private $buildArchiveFile = 'build/build.tgz';
+
+    /**
+     * @var array
+     */
+    private $postInitializeCallbacks = [];
 
     /**
      * ServerConfiguration constructor.
@@ -291,31 +318,93 @@ class Configuration
     /**
      * @return Command
      */
-    public function getAfterDeployCommands(): array
+    public function getAfterDeployTasks(): array
     {
-        return $this->afterDeployCommands;
+        return $this->afterDeployTasks;
     }
 
     /**
-     * @param Command[] $afterDeployCommands
+     * @param Command[] $afterDeployTasks
      * @return $this
      */
-    public function setAfterDeployCommands($afterDeployCommands): self
+    public function setAfterDeployTasks($afterDeployTasks): self
     {
-        $this->afterDeployCommands = [];
-        foreach ($afterDeployCommands as $command) {
-            $this->addAfterDeployCommand($command);
+        $this->afterDeployTasks = [];
+        foreach ($afterDeployTasks as $taskConfig) {
+            $this->addAfterDeployTask($taskConfig);
         }
         return $this;
     }
 
     /**
-     * @param Command $command
+     * @param TaskConfigurationInterface $taskConfig
      * @return $this
      */
-    public function addAfterDeployCommand(Command $command): self
+    public function addAfterDeployTask(TaskConfigurationInterface $taskConfig): self
     {
-        $this->afterDeployCommands[] = $command;
+        $this->afterDeployTasks[] = $taskConfig;
+        return $this;
+    }
+
+    /**
+     * @return TaskConfigurationInterface[]
+     */
+    public function getPlatformConfigurations(): array
+    {
+        return $this->platformConfigurations;
+    }
+
+    /**
+     * @param TaskConfigurationInterface[] $platformConfigurations
+     * @return $this
+     */
+    public function setPlatformConfigurations(array $platformConfigurations): self
+    {
+        $this->platformConfigurations = [];
+        foreach ($platformConfigurations as $serverConfiguration) {
+            $this->addPlatformConfiguration($serverConfiguration);
+        }
+        return $this;
+    }
+
+    /**
+     * @param TaskConfigurationInterface $platformConfiguration
+     * @return Configuration
+     */
+    public function addPlatformConfiguration(TaskConfigurationInterface $platformConfiguration): self
+    {
+        $this->platformConfigurations[] = $platformConfiguration;
+        return $this;
+    }
+
+    /**
+     * @return TaskConfigurationInterface[]
+     */
+    public function getPlatformServices(): array
+    {
+        return $this->platformServices;
+    }
+
+    /**
+     * @param TaskConfigurationInterface[] $platformServices
+     * @return $this
+     */
+    public function setPlatformServices(array $platformServices): self
+    {
+        $this->platformServices = [];
+        foreach ($platformServices as $platformService) {
+            $this->addPlatformService($platformService);
+        }
+        return $this;
+    }
+
+    /**
+     * @param TaskConfigurationInterface $platformService
+     * @return Configuration
+     */
+    public function addPlatformService(TaskConfigurationInterface $platformService): self
+    {
+        $this->platformServices[] = $platformService;
         return $this;
     }
 
@@ -349,5 +438,48 @@ class Configuration
     public function setPublicFolder(string $publicFolder): void
     {
         $this->publicFolder = $publicFolder;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPostInitializeCallbacks(): array
+    {
+        return $this->postInitializeCallbacks;
+    }
+
+    /**
+     * @param array $callbacks
+     */
+    public function setPostInitializeCallbacks(array $callbacks): void
+    {
+        $this->postInitializeCallbacks = $callbacks;
+    }
+
+    /**
+     * Add callbacks you want to excecute after all deploy tasks are initialized
+     * This allows you to reconfigure a deployer task
+     *
+     * @param callable $callback
+     */
+    public function addPostInitializeCallback(callable $callback)
+    {
+        $this->postInitializeCallbacks[] = $callback;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuildArchiveFile(): string
+    {
+        return $this->buildArchiveFile;
+    }
+
+    /**
+     * @param string $buildArchiveFile
+     */
+    public function setBuildArchiveFile(string $buildArchiveFile): void
+    {
+        $this->buildArchiveFile = $buildArchiveFile;
     }
 }

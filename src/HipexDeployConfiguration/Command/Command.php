@@ -4,10 +4,16 @@
  * @copyright (c) Hipex B.V. 2018
  */
 
-namespace HipexDeployConfiguration;
+namespace HipexDeployConfiguration\Command;
 
-class Command
+use HipexDeployConfiguration\StageConfigurableInterface;
+use HipexDeployConfiguration\StageConfigurableTrait;
+use HipexDeployConfiguration\TaskConfigurationInterface;
+
+class Command implements TaskConfigurationInterface, StageConfigurableInterface
 {
+    use StageConfigurableTrait;
+
     /**
      * Command to execute.
      *
@@ -20,13 +26,6 @@ class Command
      * @var string
      */
     private $workingDirectory;
-
-    /**
-     * When set the command is only run on a specific stage
-     *
-     * @var string
-     */
-    private $stage;
 
     /**
      * DeployCommand constructor.
@@ -60,21 +59,5 @@ class Command
     public function setWorkingDirectory(string $workingDirectory): void
     {
         $this->workingDirectory = $workingDirectory;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStage(): ?string
-    {
-        return $this->stage;
-    }
-
-    /**
-     * @param string $stage
-     */
-    public function setStage(string $stage): void
-    {
-        $this->stage = $stage;
     }
 }
