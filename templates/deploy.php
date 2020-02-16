@@ -44,7 +44,7 @@ $productionStage->addServer('production204.hipex.io', [ServerRole::DATABASE, Ser
 /**
  * Next is the test environment
  *
- * With `addServer` we leave the roles argument empty so this server will fulfill al deployment roles.
+ * With `addServer` we leave the roles argument empty so this server will fulfill all deployment roles.
  */
 $testStage = $configuration->addStage('test', 'test.example.com', 'example');
 $testStage->addServer('production205');
