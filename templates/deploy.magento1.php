@@ -6,6 +6,9 @@
 
 namespace HipexDeployConfiguration;
 
+use HipexDeployConfiguration\Configuration;
+use HipexDeployConfiguration\Command;
+
 /**
  * Start by setting up the configuration
  *
