@@ -6,8 +6,6 @@
 
 namespace HipexDeployConfiguration\Command\Build;
 
-use function Deployer\run;
-use function Deployer\test;
 use HipexDeployConfiguration\Command\Command;
 
 /**
@@ -47,12 +45,7 @@ class Composer extends Command
      */
     public function __construct(array $installArguments = self::DEFAULT_INSTALL_ARGUMENTS)
     {
-        parent::__construct(function() {
-            if (!test('[ -f vendor/autoload.php ]')) {
-                run('{{bin/composer}} install {{composer/install_arguments}}');
-            }
-        });
-
+        parent::__construct();
         $this->installArguments = $installArguments;
     }
 
