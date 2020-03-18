@@ -8,6 +8,9 @@
 // Namespace declaration is not required but just removes the pain of having to use all the config classes separately
 namespace HipexDeployConfiguration;
 
+use HipexDeployConfiguration\Configuration;
+use HipexDeployConfiguration\Command;
+
 /**
  * Start by setting up the configuration
  *
