@@ -8,8 +8,15 @@
 // Namespace declaration is not required but just removes the pain of having to use all the config classes separately
 namespace HipexDeployConfiguration;
 
-use HipexDeployConfiguration\Configuration;
-use HipexDeployConfiguration\Command;
+use HipexDeployConfiguration\Command\Build\Composer;
+use HipexDeployConfiguration\Command\Command;
+use HipexDeployConfiguration\Command\Deploy\Magento2\CacheFlush;
+use HipexDeployConfiguration\Command\Deploy\Magento2\MaintenanceMode;
+use HipexDeployConfiguration\Command\Deploy\Magento2\SetupUpgrade;
+use HipexDeployConfiguration\Command\Build\Magento2\SetupDiCompile;
+
+
+
 
 /**
  * Start by setting up the configuration
