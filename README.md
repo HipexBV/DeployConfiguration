@@ -78,7 +78,7 @@ For example you could maintain your cron configuration in your GIT repository an
 $configuration
   ->addPlatformConfiguration(
     (new \HipexDeployConfiguration\PlatformConfiguration\CronConfiguration())
-        ->onStage('production')
+        ->setStage('production')
   )
 ```
 
@@ -140,8 +140,8 @@ Most of the configurations can be specifically set for a given serverrole and/or
 
 ```
 $nginxConfiguration = (new NginxConfiguration('/etc/nginx/production'))
-  ->onServerRoles([ServerRole::APPLICATION])
-  ->onStage('production')
+  ->setServerRoles([ServerRole::APPLICATION])
+  ->setStage('production')
 $configuration->addPlatformConfiguration($nginxConfiguration)
 ```
 
