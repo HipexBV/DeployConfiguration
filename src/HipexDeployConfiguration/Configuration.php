@@ -117,24 +117,69 @@ class Configuration
     private $buildArchiveFile = 'build/build.tgz';
 
     /**
+     * Add callbacks you want to excecute after all deploy tasks are initialized
+     * This allows you to reconfigure a deployer task
+     *
      * @var array
      */
     private $postInitializeCallbacks = [];
 
     /**
-     * @var string|null
-     */
-    private $dockerBuildImage;
-
-    /**
-     * @var string|null
-     */
-    private $dockerRunImage;
-
-    /**
+     * Directory that stores log files. Is used for automatically log aggregation over different hosts / scaling
+     * applications.
+     *
      * @var string
      */
     private $logDir = 'var/log';
+
+    /**
+     * Docker imaged used as base to build docker image. (Docker `FROM` directive)
+     *
+     * @var string|null
+     */
+    private $dockerBaseImage;
+
+    /**
+     * Name of the docker image to build, excluding registry. When empty will try these env variables:
+     *  - $CI_REGISTRY_IMAGE
+     *  - $BITBUCKET_REPO_SLUG
+     *
+     *
+     * @var string|null
+     */
+    private $dockerImage;
+
+    /**
+     * Registry to push build docker image to. When empty will use `$CI_REGISTRY`.
+     *
+     * @var string|null
+     */
+    private $dockerRegistry;
+
+    /**
+     * Docker image tag. When empty will try these env variables or revert to `latest`.
+     *  - $CI_COMMIT_TAG
+     *  - $BITBUCKET_TAG
+     *
+     * Callback can be used for runtime loading of the value.
+     *
+     * @var string|callable|null
+     */
+    private $dockerTag;
+
+    /**
+     * Docker registry username. When empty will `CI_REGISTRY_USER` env variables or just skip login.
+     *
+     * @var string|null
+     */
+    private $dockerRegistryUsername;
+
+    /**
+     * Docker registry username. When empty will `CI_REGISTRY_PASSWORD` env variables or just skip login.
+     *
+     * @var string|null
+     */
+    private $dockerRegistryPassword;
 
     /**
      * ServerConfiguration constructor.
@@ -472,9 +517,6 @@ class Configuration
     }
 
     /**
-     * Add callbacks you want to excecute after all deploy tasks are initialized
-     * This allows you to reconfigure a deployer task
-     *
      * @param callable $callback
      */
     public function addPostInitializeCallback(callable $callback)
@@ -499,38 +541,6 @@ class Configuration
     }
 
     /**
-     * @return string|null
-     */
-    public function getDockerBuildImage(): ?string
-    {
-        return $this->dockerBuildImage;
-    }
-
-    /**
-     * @param string|null $dockerBuildImage
-     */
-    public function setDockerBuildImage(?string $dockerBuildImage): void
-    {
-        $this->dockerBuildImage = $dockerBuildImage;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getDockerRunImage(): ?string
-    {
-        return $this->dockerRunImage;
-    }
-
-    /**
-     * @param string|null $dockerRunImage
-     */
-    public function setDockerRunImage(?string $dockerRunImage): void
-    {
-        $this->dockerRunImage = $dockerRunImage;
-    }
-
-    /**
      * @return string
      */
     public function getLogDir(): string
@@ -546,5 +556,101 @@ class Configuration
     public function setLogDir(string $logDir): void
     {
         $this->logDir = $logDir;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDockerBaseImage(): ?string
+    {
+        return $this->dockerBaseImage;
+    }
+
+    /**
+     * @param string|null $dockerBaseImage
+     */
+    public function setDockerBaseImage(?string $dockerBaseImage): void
+    {
+        $this->dockerBaseImage = $dockerBaseImage;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDockerImage(): ?string
+    {
+        return $this->dockerImage;
+    }
+
+    /**
+     * @param string|null $dockerImage
+     */
+    public function setDockerImage(?string $dockerImage): void
+    {
+        $this->dockerImage = $dockerImage;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDockerRegistry(): ?string
+    {
+        return $this->dockerRegistry;
+    }
+
+    /**
+     * @param string|null $dockerRegistry
+     */
+    public function setDockerRegistry(?string $dockerRegistry): void
+    {
+        $this->dockerRegistry = $dockerRegistry;
+    }
+
+    /**
+     * @return callable|string|null
+     */
+    public function getDockerTag()
+    {
+        return $this->dockerTag;
+    }
+
+    /**
+     * @param callable|string|null $dockerTag
+     */
+    public function setDockerTag($dockerTag): void
+    {
+        $this->dockerTag = $dockerTag;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDockerRegistryUsername(): ?string
+    {
+        return $this->dockerRegistryUsername;
+    }
+
+    /**
+     * @param string|null $dockerRegistryUsername
+     */
+    public function setDockerRegistryUsername(?string $dockerRegistryUsername): void
+    {
+        $this->dockerRegistryUsername = $dockerRegistryUsername;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDockerRegistryPassword(): ?string
+    {
+        return $this->dockerRegistryPassword;
+    }
+
+    /**
+     * @param string|null $dockerRegistryPassword
+     */
+    public function setDockerRegistryPassword(?string $dockerRegistryPassword): void
+    {
+        $this->dockerRegistryPassword = $dockerRegistryPassword;
     }
 }
