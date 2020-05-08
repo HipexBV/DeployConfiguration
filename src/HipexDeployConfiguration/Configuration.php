@@ -133,17 +133,28 @@ class Configuration
     private $logDir = 'var/log';
 
     /**
-     * Docker imaged used as base to build docker image. (Docker `FROM` directive)
+     * Docker imaged used as base to build docker image for PHP-FPM container. Used as docker `FROM` directive. When empty
+     * Hipex base image will be used `registry.hipex.cloud/hipex-services/docker-image-php/<version>-fpm`. The PHP version
+     * will be replaced based on `$phpVersion` configuration.
      *
      * @var string|null
      */
-    private $dockerBaseImage;
+    private $dockerBaseImagePhp;
+
+    /**
+     * Docker imaged used as base to build docker image for nginx container. Used as docker `FROM` directive. When empty
+     * Hipex base image `registry.hipex.cloud/hipex-services/docker-image-nginx` will be used.
+     *
+     * @var string|null
+     */
+    private $dockerBaseImageNginx;
 
     /**
      * Name of the docker image to build, excluding registry. When empty will try these env variables:
      *  - $CI_REGISTRY_IMAGE
      *  - $BITBUCKET_REPO_SLUG
      *
+     * The final image will have a /php or /nginx added
      *
      * @var string|null
      */
@@ -561,17 +572,33 @@ class Configuration
     /**
      * @return string|null
      */
-    public function getDockerBaseImage(): ?string
+    public function getDockerBaseImagePhp(): ?string
     {
-        return $this->dockerBaseImage;
+        return $this->dockerBaseImagePhp;
     }
 
     /**
-     * @param string|null $dockerBaseImage
+     * @param string|null $dockerBaseImagePhp
      */
-    public function setDockerBaseImage(?string $dockerBaseImage): void
+    public function setDockerBaseImagePhp(?string $dockerBaseImagePhp): void
     {
-        $this->dockerBaseImage = $dockerBaseImage;
+        $this->dockerBaseImagePhp = $dockerBaseImagePhp;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDockerBaseImageNginx(): ?string
+    {
+        return $this->dockerBaseImageNginx;
+    }
+
+    /**
+     * @param string|null $dockerBaseImageNginx
+     */
+    public function setDockerBaseImageNginx(?string $dockerBaseImageNginx): void
+    {
+        $this->dockerBaseImageNginx = $dockerBaseImageNginx;
     }
 
     /**
