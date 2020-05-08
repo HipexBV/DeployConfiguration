@@ -122,6 +122,21 @@ class Configuration
     private $postInitializeCallbacks = [];
 
     /**
+     * @var string|null
+     */
+    private $dockerBuildImage;
+
+    /**
+     * @var string|null
+     */
+    private $dockerRunImage;
+
+    /**
+     * @var string
+     */
+    private $logDir = 'var/log';
+
+    /**
      * ServerConfiguration constructor.
      *
      * @param string $gitRepository
@@ -481,5 +496,55 @@ class Configuration
     public function setBuildArchiveFile(string $buildArchiveFile): void
     {
         $this->buildArchiveFile = $buildArchiveFile;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDockerBuildImage(): ?string
+    {
+        return $this->dockerBuildImage;
+    }
+
+    /**
+     * @param string|null $dockerBuildImage
+     */
+    public function setDockerBuildImage(?string $dockerBuildImage): void
+    {
+        $this->dockerBuildImage = $dockerBuildImage;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDockerRunImage(): ?string
+    {
+        return $this->dockerRunImage;
+    }
+
+    /**
+     * @param string|null $dockerRunImage
+     */
+    public function setDockerRunImage(?string $dockerRunImage): void
+    {
+        $this->dockerRunImage = $dockerRunImage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogDir(): string
+    {
+        return $this->logDir;
+    }
+
+    /**
+     * Directory containing log files
+     *
+     * @param string $logDir
+     */
+    public function setLogDir(string $logDir): void
+    {
+        $this->logDir = $logDir;
     }
 }
