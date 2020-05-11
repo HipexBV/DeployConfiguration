@@ -57,6 +57,13 @@ class Configuration
     private $sharedFiles = [];
 
     /**
+     * Folders that should be writable but not shared between deploys.
+     *
+     * @var string[]
+     */
+    private $writableFolders = [];
+
+    /**
      *
      * Add file / directory that will not be deployed. File patterns are added as `tar --exclude=`;
      *
@@ -291,6 +298,35 @@ class Configuration
     public function getSharedFiles(): array
     {
         return $this->sharedFiles;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getWritableFolders(): array
+    {
+        return $this->writableFolders;
+    }
+
+    /**
+     * @param string $folder
+     * @return $this
+     */
+    public function addWritableFolder(string $folder): self
+    {
+        $this->writableFolders[] = $folder;
+        return $this;
+    }
+
+    /**
+     * @param string[] $writableFolders
+     */
+    public function setWritableFolders(array $writableFolders): void
+    {
+        $this->writableFolders = [];
+        foreach ($writableFolders as $folder) {
+            $this->addWritableFolder($folder);
+        }
     }
 
     /**
