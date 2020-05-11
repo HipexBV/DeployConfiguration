@@ -57,7 +57,7 @@ class Configuration
     private $sharedFiles = [];
 
     /**
-     * Folders that should be writable but not shared between deploys.
+     * Folders that should be writable but not shared between deploys. All shared folders are writable by default.
      *
      * @var string[]
      */
