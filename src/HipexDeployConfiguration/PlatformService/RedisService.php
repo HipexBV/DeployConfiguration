@@ -45,6 +45,11 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     private $identifier;
 
     /**
+     * @var string|null
+     */
+    private $masterServer;
+
+    /**
      * @param string $identifier
      */
     public function __construct(string $identifier = 'backend')
@@ -107,5 +112,21 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     public function setSnapshotSaveFrequency(int $snapshotSaveFrequency): void
     {
         $this->snapshotSaveFrequency = $snapshotSaveFrequency;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMasterServer(): ?string
+    {
+        return $this->masterServer;
+    }
+
+    /**
+     * @param string|null $masterServer
+     */
+    public function setMasterServer(?string $masterServer): void
+    {
+        $this->masterServer = $masterServer;
     }
 }
