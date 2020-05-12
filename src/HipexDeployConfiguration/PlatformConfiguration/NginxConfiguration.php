@@ -6,6 +6,7 @@
 
 namespace HipexDeployConfiguration\PlatformConfiguration;
 
+use HipexDeployConfiguration\ServerRole;
 use HipexDeployConfiguration\ServerRoleConfigurableInterface;
 use HipexDeployConfiguration\ServerRoleConfigurableTrait;
 use HipexDeployConfiguration\StageConfigurableInterface;
@@ -35,6 +36,7 @@ class NginxConfiguration implements
     public function __construct($sourceFolder = 'etc/nginx/')
     {
         $this->sourceFolder = $sourceFolder;
+        $this->setServerRoles([ServerRole::APPLICATION, ServerRole::LOAD_BALANCER]);
     }
 
     /**
