@@ -158,7 +158,7 @@ class Configuration
 
     /**
      * Name of the docker image to build, excluding registry. When empty will try these env variables:
-     *  - $CI_REGISTRY_IMAGE
+     *  - $CI_PROJECT_PATH
      *  - $BITBUCKET_REPO_SLUG
      *
      * The final image will have a /php or /nginx added
