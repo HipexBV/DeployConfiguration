@@ -1,4 +1,6 @@
-image: hipex/deploy
+# see https://hub.docker.com/r/hipex/deploy/tags for all possible tags
+# pin the image to a specific version to stay in control with updates 
+image: hipex/deploy:2.1.0-php7.2-node13
 
 pipelines:
   branches:
@@ -7,21 +9,19 @@ pipelines:
     test:
       - step:
           name: build
-          image: hipex/deploy
           script:
-            - hipex-deploy build
+            - hipex-deploy build -vvv
           artifacts:
             - build/**
       - step:
           name: deploy
           script:
-            - hipex-deploy deploy test
+            - hipex-deploy deploy test -vvv
 
     # Deploy to production
     master:
       - step:
           name: build
-          image: hipex/deploy
           script:
             - hipex-deploy build
           artifacts:
