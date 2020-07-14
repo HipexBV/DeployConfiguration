@@ -19,7 +19,7 @@ use HipexDeployConfiguration\Command\Build\Magento2\SetupDiCompile;
  * The magento 2 configuration contains some default configuration for shared folders / files and running installers
  * @see ApplicationTemplate\Magento2::initializeDefaultConfiguration
  */
-$configuration = new ApplicationTemplate\Magento2('https://github.com/HipexBV/DeployConfiguration.git');
+$configuration = new ApplicationTemplate\Magento2('https://github.com/HipexBV/DeployConfiguration.git', ['nl_NL'], ['en_GB', 'nl_NL']);
 
 $productionStage = $configuration->addStage('production', 'example.com', 'example');
 $productionStage->addServer('production201.hipex.io');
