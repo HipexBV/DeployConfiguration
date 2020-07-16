@@ -12,7 +12,7 @@ use HipexDeployConfiguration\ServerRole;
 class MagerunSetupRun extends DeployCommand
 {
     /**
-     * DeployModeSet constructor.
+     * MagerunSetupRun constructor.
      */
     public function __construct()
     {

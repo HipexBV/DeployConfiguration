@@ -12,7 +12,7 @@ use HipexDeployConfiguration\ServerRole;
 class MagerunCacheFlush extends DeployCommand
 {
     /**
-     * DeployModeSet constructor.
+     * MagerunCacheFlush constructor.
      */
     public function __construct()
     {

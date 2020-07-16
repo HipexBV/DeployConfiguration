@@ -15,7 +15,7 @@ use HipexDeployConfiguration\ServerRole;
 class MaintenanceMode extends DeployCommand
 {
     /**
-     * DeployModeSet constructor.
+     * MaintenanceMode constructor.
      */
     public function __construct()
     {
