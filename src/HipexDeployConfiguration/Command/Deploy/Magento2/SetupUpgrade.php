@@ -16,7 +16,7 @@ class SetupUpgrade extends DeployCommand
      */
     public function __construct()
     {
-        parent::__construct('{{bin/php}} bin/magento setup:upgrade --keep-generated');
+        parent::__construct('{{bin/php}} bin/magento setup:upgrade --no-interaction --keep-generated');
         $this->setServerRoles([ServerRole::APPLICATION_FIRST]);
     }
 }
