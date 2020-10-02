@@ -34,7 +34,7 @@ class Deploy extends Configuration
 
     private function configureEnvironmentStaging()
     {
-        $stageStaging = $this->addStage('staging', 'staging.example.com', 'example');
+        $stageStaging = $this->addStage('staging', 'staging.example.com', 'ssh_username');
         $stageStaging->addServer('staging123.hipex.io');
     }
 
