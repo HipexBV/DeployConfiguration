@@ -6,8 +6,10 @@
 
 namespace HipexDeployConfiguration\ApplicationTemplate;
 
+use HipexDeployConfiguration\ClusterSharedFolder;
 use HipexDeployConfiguration\Configuration;
 use HipexDeployConfiguration\Command;
+use HipexDeployConfiguration\SharedFolder;
 
 class Magento2 extends Configuration
 {
@@ -49,10 +51,10 @@ class Magento2 extends Configuration
         ]);
 
         $this->setSharedFolders([
-            'var/log',
-            'var/session',
-            'var/report',
-            'pub/media',
+            new SharedFolder('var/log'),
+            new SharedFolder('var/report'),
+            new ClusterSharedFolder('var/session'),
+            new ClusterSharedFolder('pub/media'),
         ]);
 
         $this->addDeployExclude('phpserver/');

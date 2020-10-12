@@ -45,14 +45,14 @@ class Configuration
 
     /**
      * Shared folders between deploys. Commonly used for `media`, `var/import` folders etc.
-     * @var string[]
+     * @var SharedFolder[]
      */
     private $sharedFolders = [];
 
     /**
      * Files shared between deploys. Commonly used for database configurations etc.
      *
-     * @var string[]
+     * @var SharedFile[]
      */
     private $sharedFiles = [];
 
@@ -111,7 +111,7 @@ class Configuration
     /**
      * @var string
      */
-    private $phpVersion = 'php72';
+    private $phpVersion = 'php74';
 
     /**
      * @var string
@@ -239,7 +239,7 @@ class Configuration
     }
 
     /**
-     * @param array $folders
+     * @param SharedFolder[]|string[] $folders
      * @return $this
      */
     public function setSharedFolders(array $folders): self
@@ -252,17 +252,20 @@ class Configuration
     }
 
     /**
-     * @param string $folder
+     * @param SharedFolder|string $folder
      * @return $this
      */
-    public function addSharedFolder(string $folder): self
+    public function addSharedFolder($folder): self
     {
+        if (!$folder instanceof SharedFolder) {
+            $folder = new SharedFolder($folder);
+        }
         $this->sharedFolders[] = $folder;
         return $this;
     }
 
     /**
-     * @return string[]
+     * @return SharedFolder[]
      */
     public function getSharedFolders(): array
     {
@@ -270,7 +273,7 @@ class Configuration
     }
 
     /**
-     * @param array $files
+     * @param SharedFile[]|string[] $files
      * @return $this
      */
     public function setSharedFiles(array $files): self
@@ -283,17 +286,20 @@ class Configuration
     }
 
     /**
-     * @param string $file
+     * @param SharedFile|string $file
      * @return $this
      */
-    public function addSharedFile(string $file): self
+    public function addSharedFile($file): self
     {
+        if (!$file instanceof SharedFile) {
+            $file = new SharedFile($file);
+        }
         $this->sharedFiles[] = $file;
         return $this;
     }
 
     /**
-     * @return string[]
+     * @return SharedFile[]
      */
     public function getSharedFiles(): array
     {
