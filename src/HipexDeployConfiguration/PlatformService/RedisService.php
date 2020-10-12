@@ -37,7 +37,7 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     /**
      * @var array
      */
-    private $configIncludes;
+    private $configIncludes = [];
 
     /**
      * @var string

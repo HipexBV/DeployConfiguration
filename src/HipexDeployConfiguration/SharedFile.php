@@ -29,4 +29,12 @@ class SharedFile
     {
         return $this->file;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->file;
+    }
 }

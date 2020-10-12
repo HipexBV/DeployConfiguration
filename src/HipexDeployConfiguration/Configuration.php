@@ -175,17 +175,6 @@ class Configuration
     private $dockerRegistry;
 
     /**
-     * Docker image tag. When empty will try these env variables or revert to `latest`.
-     *  - $CI_COMMIT_TAG
-     *  - $BITBUCKET_TAG
-     *
-     * Callback can be used for runtime loading of the value.
-     *
-     * @var string|callable|null
-     */
-    private $dockerTag;
-
-    /**
      * Docker registry username. When empty will `CI_REGISTRY_USER` env variables or just skip login.
      *
      * @var string|null
@@ -198,6 +187,14 @@ class Configuration
      * @var string|null
      */
     private $dockerRegistryPassword;
+
+    /**
+     * When DevOps As A Service is enabled a `.hipex-cloud.json` file is generated and uploaded to the production
+     * environment. This file is required for features like Hybrid Cloud.
+     *
+     * @var bool
+     */
+    private $daasEnabled = false;
 
     /**
      * ServerConfiguration constructor.
@@ -676,22 +673,6 @@ class Configuration
     }
 
     /**
-     * @return callable|string|null
-     */
-    public function getDockerTag()
-    {
-        return $this->dockerTag;
-    }
-
-    /**
-     * @param callable|string|null $dockerTag
-     */
-    public function setDockerTag($dockerTag): void
-    {
-        $this->dockerTag = $dockerTag;
-    }
-
-    /**
      * @return string|null
      */
     public function getDockerRegistryUsername(): ?string
@@ -721,5 +702,21 @@ class Configuration
     public function setDockerRegistryPassword(?string $dockerRegistryPassword): void
     {
         $this->dockerRegistryPassword = $dockerRegistryPassword;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDaasEnabled(): bool
+    {
+        return $this->daasEnabled;
+    }
+
+    /**
+     * @param bool $daasEnabled
+     */
+    public function setDaasEnabled(bool $daasEnabled): void
+    {
+        $this->daasEnabled = $daasEnabled;
     }
 }

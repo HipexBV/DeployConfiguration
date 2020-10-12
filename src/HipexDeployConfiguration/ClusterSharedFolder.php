@@ -12,15 +12,5 @@ namespace HipexDeployConfiguration;
  */
 class ClusterSharedFolder extends SharedFolder
 {
-    use ClusterSharedTrait;
 
-    /**
-     * @param string $folder
-     * @param string $owningServerRole
-     */
-    public function __construct(string $folder, string $owningServerRole = ServerRole::LOAD_BALANCER)
-    {
-        parent::__construct($folder);
-        $this->setOwningServerRole($owningServerRole);
-    }
 }

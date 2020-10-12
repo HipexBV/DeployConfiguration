@@ -29,4 +29,12 @@ class SharedFolder
     {
         return $this->folder;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->folder;
+    }
 }
