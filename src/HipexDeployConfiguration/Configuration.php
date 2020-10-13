@@ -23,6 +23,7 @@ class Configuration
         '.DS_Store',
         '.idea',
         '.gitignore',
+        '.editorconfig',
         '*.scss',
         '*.less',
         '*.jsx',
