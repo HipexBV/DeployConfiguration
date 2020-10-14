@@ -6,8 +6,10 @@
 
 namespace HipexDeployConfiguration\ApplicationTemplate;
 
+use HipexDeployConfiguration\ClusterSharedFolder;
 use HipexDeployConfiguration\Configuration;
 use HipexDeployConfiguration\Command;
+use HipexDeployConfiguration\SharedFolder;
 
 class Magento1 extends Configuration
 {
@@ -22,7 +24,7 @@ class Magento1 extends Configuration
 
         $this->initializeDefaultConfiguration();
     }
-    
+
     /**
      * Initialize defaults
      */
@@ -39,9 +41,9 @@ class Magento1 extends Configuration
         ]);
 
         $this->setSharedFolders([
-            'var',
-            'media',
-            'sitemap',
+            new SharedFolder('var'),
+            new ClusterSharedFolder('media'),
+            new ClusterSharedFolder('sitemap'),
         ]);
     }
 }

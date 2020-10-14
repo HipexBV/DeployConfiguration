@@ -2,6 +2,7 @@
 
 namespace HipexDeployConfiguration\ApplicationTemplate;
 
+use HipexDeployConfiguration\ClusterSharedFolder;
 use HipexDeployConfiguration\Command\Build\Composer;
 use HipexDeployConfiguration\Command\Build\Shopware6\BuildAdministration;
 use HipexDeployConfiguration\Command\Build\Shopware6\BuildStorefront;
@@ -10,8 +11,7 @@ use HipexDeployConfiguration\Command\Deploy\Shopware6\AssetInstall;
 use HipexDeployConfiguration\Command\Deploy\Shopware6\CacheClear;
 use HipexDeployConfiguration\Command\Deploy\Shopware6\ThemeCompile;
 use HipexDeployConfiguration\Configuration;
-use HipexDeployConfiguration\Command;
-use HipexDeployConfiguration\Command\DeployCommand;
+use HipexDeployConfiguration\SharedFolder;
 
 class Shopware6 extends Configuration
 {
@@ -56,11 +56,11 @@ class Shopware6 extends Configuration
         ]);
 
         $this->setSharedFolders([
-            'config/jwt',
-            'var/log',
-            'public/sitemap',
-            'public/media',
-            'public/thumbnail'
+            new SharedFolder('var/log'),
+            new ClusterSharedFolder('config/jwt'),
+            new ClusterSharedFolder('public/sitemap'),
+            new ClusterSharedFolder('public/media'),
+            new ClusterSharedFolder('public/thumbnail'),
         ]);
     }
 }

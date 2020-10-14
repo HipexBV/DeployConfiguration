@@ -23,6 +23,7 @@ class Configuration
         '.DS_Store',
         '.idea',
         '.gitignore',
+        '.editorconfig',
         '*.scss',
         '*.less',
         '*.jsx',
@@ -45,14 +46,14 @@ class Configuration
 
     /**
      * Shared folders between deploys. Commonly used for `media`, `var/import` folders etc.
-     * @var string[]
+     * @var SharedFolder[]
      */
     private $sharedFolders = [];
 
     /**
      * Files shared between deploys. Commonly used for database configurations etc.
      *
-     * @var string[]
+     * @var SharedFile[]
      */
     private $sharedFiles = [];
 
@@ -111,7 +112,7 @@ class Configuration
     /**
      * @var string
      */
-    private $phpVersion = 'php72';
+    private $phpVersion = 'php74';
 
     /**
      * @var string
@@ -175,17 +176,6 @@ class Configuration
     private $dockerRegistry;
 
     /**
-     * Docker image tag. When empty will try these env variables or revert to `latest`.
-     *  - $CI_COMMIT_TAG
-     *  - $BITBUCKET_TAG
-     *
-     * Callback can be used for runtime loading of the value.
-     *
-     * @var string|callable|null
-     */
-    private $dockerTag;
-
-    /**
      * Docker registry username. When empty will `CI_REGISTRY_USER` env variables or just skip login.
      *
      * @var string|null
@@ -198,6 +188,14 @@ class Configuration
      * @var string|null
      */
     private $dockerRegistryPassword;
+
+    /**
+     * When DevOps As A Service is enabled a `.hipex-cloud.json` file is generated and uploaded to the production
+     * environment. This file is required for features like Hybrid Cloud.
+     *
+     * @var bool
+     */
+    private $daasEnabled = false;
 
     /**
      * ServerConfiguration constructor.
@@ -239,7 +237,7 @@ class Configuration
     }
 
     /**
-     * @param array $folders
+     * @param SharedFolder[]|string[] $folders
      * @return $this
      */
     public function setSharedFolders(array $folders): self
@@ -252,17 +250,20 @@ class Configuration
     }
 
     /**
-     * @param string $folder
+     * @param SharedFolder|string $folder
      * @return $this
      */
-    public function addSharedFolder(string $folder): self
+    public function addSharedFolder($folder): self
     {
+        if (!$folder instanceof SharedFolder) {
+            $folder = new SharedFolder($folder);
+        }
         $this->sharedFolders[] = $folder;
         return $this;
     }
 
     /**
-     * @return string[]
+     * @return SharedFolder[]
      */
     public function getSharedFolders(): array
     {
@@ -270,7 +271,7 @@ class Configuration
     }
 
     /**
-     * @param array $files
+     * @param SharedFile[]|string[] $files
      * @return $this
      */
     public function setSharedFiles(array $files): self
@@ -283,17 +284,20 @@ class Configuration
     }
 
     /**
-     * @param string $file
+     * @param SharedFile|string $file
      * @return $this
      */
-    public function addSharedFile(string $file): self
+    public function addSharedFile($file): self
     {
+        if (!$file instanceof SharedFile) {
+            $file = new SharedFile($file);
+        }
         $this->sharedFiles[] = $file;
         return $this;
     }
 
     /**
-     * @return string[]
+     * @return SharedFile[]
      */
     public function getSharedFiles(): array
     {
@@ -670,22 +674,6 @@ class Configuration
     }
 
     /**
-     * @return callable|string|null
-     */
-    public function getDockerTag()
-    {
-        return $this->dockerTag;
-    }
-
-    /**
-     * @param callable|string|null $dockerTag
-     */
-    public function setDockerTag($dockerTag): void
-    {
-        $this->dockerTag = $dockerTag;
-    }
-
-    /**
      * @return string|null
      */
     public function getDockerRegistryUsername(): ?string
@@ -715,5 +703,21 @@ class Configuration
     public function setDockerRegistryPassword(?string $dockerRegistryPassword): void
     {
         $this->dockerRegistryPassword = $dockerRegistryPassword;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDaasEnabled(): bool
+    {
+        return $this->daasEnabled;
+    }
+
+    /**
+     * @param bool $daasEnabled
+     */
+    public function setDaasEnabled(bool $daasEnabled): void
+    {
+        $this->daasEnabled = $daasEnabled;
     }
 }
