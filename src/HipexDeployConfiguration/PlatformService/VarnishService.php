@@ -9,11 +9,17 @@ namespace HipexDeployConfiguration\PlatformService;
 use HipexDeployConfiguration\ServerRole;
 use HipexDeployConfiguration\ServerRoleConfigurableInterface;
 use HipexDeployConfiguration\ServerRoleConfigurableTrait;
+use HipexDeployConfiguration\StageConfigurableInterface;
+use HipexDeployConfiguration\StageConfigurableTrait;
 use HipexDeployConfiguration\TaskConfigurationInterface;
 
-class VarnishService implements TaskConfigurationInterface, ServerRoleConfigurableInterface
+class VarnishService implements
+    TaskConfigurationInterface,
+    ServerRoleConfigurableInterface,
+    StageConfigurableInterface
 {
     use ServerRoleConfigurableTrait;
+    use StageConfigurableTrait;
 
     /**
      * Defaults
