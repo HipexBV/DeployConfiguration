@@ -50,11 +50,18 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     private $masterServer;
 
     /**
-     * @param string $identifier
+     * @var int
      */
-    public function __construct(string $identifier = 'backend')
+    protected $port;
+
+    /**
+     * @param string $identifier
+     * @param int    $port
+     */
+    public function __construct(string $identifier = 'backend', int $port = 6379)
     {
         $this->identifier = $identifier;
+        $this->port = $port;
         $this->setServerRoles([ServerRole::REDIS]);
     }
 
@@ -128,5 +135,13 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     public function setMasterServer(?string $masterServer): void
     {
         $this->masterServer = $masterServer;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPort(): int
+    {
+        return $this->port;
     }
 }

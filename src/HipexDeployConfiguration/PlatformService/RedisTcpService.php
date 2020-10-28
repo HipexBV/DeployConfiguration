@@ -6,35 +6,10 @@
 
 namespace HipexDeployConfiguration\PlatformService;
 
-use HipexDeployConfiguration\ServerRole;
-use HipexDeployConfiguration\ServerRoleConfigurableInterface;
-use HipexDeployConfiguration\ServerRoleConfigurableTrait;
-use HipexDeployConfiguration\StageConfigurableInterface;
-use HipexDeployConfiguration\StageConfigurableTrait;
-use HipexDeployConfiguration\TaskConfigurationInterface;
-
+/**
+ * @deprecated The listening on port feature that `RedisTcpService` provided has been moved to the default `RedisService` class. Please use `RedisService` instead.
+ */
 class RedisTcpService extends RedisService
 {
-    /**
-     * @var int
-     */
-    protected $port;
 
-    /**
-     * @param string $identifier
-     * @param int    $port
-     */
-    public function __construct(string $identifier = 'backend', int $port = 6379)
-    {
-        parent::__construct($identifier);
-        $this->port = $port;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPort(): int
-    {
-        return $this->port;
-    }
 }
