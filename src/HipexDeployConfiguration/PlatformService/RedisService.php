@@ -35,6 +35,11 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     private $snapshotSaveFrequency = 60;
 
     /**
+     * @var bool
+     */
+    private $disableRdbPersistence = false;
+
+    /**
      * @var array
      */
     private $configIncludes = [];
@@ -143,5 +148,21 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     public function getPort(): int
     {
         return $this->port;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getDisableRdbPersistence() : bool
+    {
+        return $this->disableRdbPersistence;
+    }
+
+    /**
+     * @param bool $disableRdbPersistence
+     */
+    public function setDisableRdbPersistence(bool $disableRdbPersistence): void
+    {
+        $this->disableRdbPersistence = $disableRdbPersistence;
     }
 }
