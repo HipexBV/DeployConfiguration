@@ -35,6 +35,21 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     private $snapshotSaveFrequency = 60;
 
     /**
+     * @var bool
+     */
+    private $disableRdbPersistence = false;
+
+    /**
+     * @var string
+     */
+    private $clientOutputBufferLimitNormal = '0 0 0';
+
+    /**
+     * @var string
+     */
+    private $clientOutputBufferLimitSlave = '0 0 0';
+
+    /**
      * @var array
      */
     private $configIncludes = [];
@@ -143,5 +158,53 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     public function getPort(): int
     {
         return $this->port;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getDisableRdbPersistence() : bool
+    {
+        return $this->disableRdbPersistence;
+    }
+
+    /**
+     * @param bool $disableRdbPersistence
+     */
+    public function setDisableRdbPersistence(bool $disableRdbPersistence): void
+    {
+        $this->disableRdbPersistence = $disableRdbPersistence;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClientOutputBufferLimitNormal(): string
+    {
+        return $this->clientOutputBufferLimitNormal;
+    }
+
+    /**
+     * @param string $clientOutputBufferLimitNormal
+     */
+    public function setClientOutputBufferLimitNormal(string $clientOutputBufferLimitNormal): void
+    {
+        $this->clientOutputBufferLimitNormal = $clientOutputBufferLimitNormal;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClientOutputBufferLimitSlave(): string
+    {
+        return $this->clientOutputBufferLimitSlave;
+    }
+
+    /**
+     * @param string $clientOutputBufferLimitSlave
+     */
+    public function setClientOutputBufferLimitSlave(string $clientOutputBufferLimitSlave): void
+    {
+        $this->clientOutputBufferLimitSlave = $clientOutputBufferLimitSlave;
     }
 }
