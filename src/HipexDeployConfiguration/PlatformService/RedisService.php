@@ -32,22 +32,7 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     /**
      * @var int
      */
-    private $snapshotSaveFrequency = 60;
-
-    /**
-     * @var bool
-     */
-    private $disableRdbPersistence = false;
-
-    /**
-     * @var string
-     */
-    private $clientOutputBufferLimitNormal = '0 0 0';
-
-    /**
-     * @var string
-     */
-    private $clientOutputBufferLimitSlave = '0 0 0';
+    private $snapshotSaveFrequency = 0;
 
     /**
      * @var array
@@ -68,6 +53,17 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
      * @var int
      */
     protected $port;
+
+    /**
+     * @var array
+     */
+    protected $extraSettings = [
+        'hz' => '10',
+        'appendfsync' => 'no',
+        'aof-rewrite-incremental-fsync' => 'yes',
+        'tcp-backlog' => '8096',
+        'client-output-buffer-limit' => 'normal 0 0 0 slave 0 0 0 pubsub 0 0 0',
+    ];
 
     /**
      * @param string $identifier
@@ -161,50 +157,37 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
     }
 
     /**
-     * @return bool
+     * @return array
      */
-    public function getDisableRdbPersistence() : bool
+    public function getExtraSettings(): array
     {
-        return $this->disableRdbPersistence;
+        return $this->extraSettings;
     }
 
     /**
-     * @param bool $disableRdbPersistence
+     * @param array $extraSettings
      */
-    public function setDisableRdbPersistence(bool $disableRdbPersistence): void
+    public function setExtraSettings(array $extraSettings): void
     {
-        $this->disableRdbPersistence = $disableRdbPersistence;
+        $this->extraSettings = $extraSettings;
     }
 
     /**
-     * @return string
+     * @param string $setting
+     * @param string $value
      */
-    public function getClientOutputBufferLimitNormal(): string
+    public function setExtraSetting(string $setting, string $value): void
     {
-        return $this->clientOutputBufferLimitNormal;
+        $this->extraSettings[$setting] = $value;
     }
 
     /**
-     * @param string $clientOutputBufferLimitNormal
+     * @param array $extraSettings
      */
-    public function setClientOutputBufferLimitNormal(string $clientOutputBufferLimitNormal): void
+    public function addExtraSettings(array $extraSettings): void
     {
-        $this->clientOutputBufferLimitNormal = $clientOutputBufferLimitNormal;
-    }
-
-    /**
-     * @return string
-     */
-    public function getClientOutputBufferLimitSlave(): string
-    {
-        return $this->clientOutputBufferLimitSlave;
-    }
-
-    /**
-     * @param string $clientOutputBufferLimitSlave
-     */
-    public function setClientOutputBufferLimitSlave(string $clientOutputBufferLimitSlave): void
-    {
-        $this->clientOutputBufferLimitSlave = $clientOutputBufferLimitSlave;
+        foreach ($extraSettings as $setting => $value) {
+            $this->setExtraSetting($setting, $value);
+        }
     }
 }
