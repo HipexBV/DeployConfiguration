@@ -62,7 +62,9 @@ class RedisService implements TaskConfigurationInterface, ServerRoleConfigurable
         'appendfsync' => 'no',
         'aof-rewrite-incremental-fsync' => 'yes',
         'tcp-backlog' => '8096',
-        'client-output-buffer-limit' => 'normal 0 0 0 slave 0 0 0 pubsub 0 0 0',
+        'client-output-buffer-limit normal' => '0 0 0',
+        'client-output-buffer-limit slave' => '0 0 0',
+        'client-output-buffer-limit pubsub' => '0 0 0',
     ];
 
     /**
