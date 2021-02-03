@@ -68,10 +68,10 @@ $testStage->addServer('production205');
  * Here are some examples. Configuration from these examples is mostly set trough the environment variables. They
  * can also be set using the constructor arguments of the commands.
  */
-$configuration->addAfterDeployCommand(new Command\After\NewRelic());
-$configuration->addAfterDeployCommand(new Command\After\EmailNotification());
-$configuration->addAfterDeployCommand(new Command\After\Cloudflare());
-$configuration->addAfterDeployCommand(new Command\After\SlackWebhook(
+$configuration->addAfterDeployCommand(new AfterDeployTask\NewRelic());
+$configuration->addAfterDeployCommand(new AfterDeployTask\EmailNotification());
+$configuration->addAfterDeployCommand(new AfterDeployTask\Cloudflare());
+$configuration->addAfterDeployCommand(new AfterDeployTask\SlackWebhook(
     'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
 ));
 
@@ -117,9 +117,6 @@ $configuration->addBuildCommand(new Command\Build\Magento2\SetupStaticContentDep
 $configuration->addDeployCommand(new Command\Deploy\Magento2\MaintenanceMode());
 $configuration->addDeployCommand(new Command\Deploy\Magento2\SetupUpgrade());
 $configuration->addDeployCommand(new Command\Deploy\Magento2\CacheFlush());
-
-
-
 
 /**
  * Return our configuration to the deploy image
