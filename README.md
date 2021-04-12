@@ -61,7 +61,18 @@ $stageAcceptance->addServer('productionxxx.hipex.io', [
 ]);
 ```
 
-You can define commands which needs to be executed during the build stage as follows:
+To set extra SSH options (https://www.ssh.com/academy/ssh/config) for your server you can also provide these.
+For example:
+
+```
+$stage->addServer(
+    'productionxxx.hipex.io',
+    [ServerRole::APPLICATION],
+    [],
+    ['LogLevel' => 'verbose']
+```
+
+You can define commands which needs to be executed during the deploy stage as follows:
 
 `$configuration->addDeployCommand(new \HipexDeployConfiguration\Command\Deploy\Magento2\CacheFlush())` 
 

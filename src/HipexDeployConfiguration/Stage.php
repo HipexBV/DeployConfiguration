@@ -65,14 +65,20 @@ class Stage
     }
 
     /**
-     * @param string $hostname
-     * @param array  $roles
-     * @param array  $options Extra host options
+     * @param string     $hostname
+     * @param array|null $roles
+     * @param array      $options Extra host options
+     * @param array      $sshOptions
      * @return Server
      */
-    public function addServer(string $hostname, array $roles = null, array $options = []): Server
-    {
+    public function addServer(
+        string $hostname,
+        array $roles = null,
+        array $options = [],
+        array $sshOptions = []
+    ): Server {
         $server = new Server($hostname, $roles, $options);
+        $server->setSshOptions($sshOptions);
         $this->servers[] = $server;
         return $server;
     }
