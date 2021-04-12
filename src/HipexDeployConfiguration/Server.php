@@ -27,6 +27,11 @@ class Server
     private $options = [];
 
     /**
+     * @var string[]
+     */
+    private $sshOptions = [];
+
+    /**
      * Server constructor.
      *
      * @param string $hostname
@@ -62,6 +67,31 @@ class Server
     public function getOptions(): array
     {
         return $this->options;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getSshOptions(): array
+    {
+        return $this->sshOptions;
+    }
+
+    /**
+     * @param $options
+     */
+    public function setSshOptions(array $options): void
+    {
+        $this->sshOptions = $options;
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     */
+    public function addSshOption(string $name, string $value): void
+    {
+        $this->sshOptions[$name] = $value;
     }
 }
 
