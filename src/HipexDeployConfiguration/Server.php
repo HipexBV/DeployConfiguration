@@ -80,7 +80,7 @@ class Server
     /**
      * @param $options
      */
-    public function setSshOptions($options): void
+    public function setSshOptions(array $options): void
     {
         $this->sshOptions = $options;
     }
