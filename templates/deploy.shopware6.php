@@ -98,7 +98,7 @@ class Deploy extends Configuration
 
     private function configureBuild()
     {
-        $composerInstallArguments = [
+        $installArguments = [
             '--verbose',
             '--no-progress',
             '--no-interaction',
@@ -106,22 +106,15 @@ class Deploy extends Configuration
             '--ignore-platform-reqs',
         ];
 
-        $composerCommand = new Composer($composerInstallArguments);
-        $composerSwRecoveryCommand = new Command('{{bin/composer}} install -d vendor/shopware/recovery --no-interaction --optimize-autoloader --no-suggest');
-        $buildAdministrationCommand = new Command('./bin/build-administration.sh');
-        $buildStorefrontCommand = new Command('./bin/build-storefront.sh');
-
-
-        $this->setBuildCommands([$composerCommand, $composerSwRecoveryCommand, $buildAdministrationCommand, $buildStorefrontCommand]);
+        $this->addBuildCommand(new Composer($installArguments));
     }
 
     private function configureDeploy()
     {
         // Commands that require database access must run as deploy command and run on the server, whilest build commands run in your CI container. 
-        $systemInstallCommand = new DeployCommand('{{bin/php}} bin/console system:install --force');
-        $buildThemeCommand = new DeployCommand('{{bin/php}} bin/console theme:compile');
-        $this->addDeployCommand($systemInstallCommand);
-        $this->addDeployCommand($buildThemeCommand);
+        $this->addDeployCommand(new AssetInstall());
+        $this->addDeployCommand(new ThemeCompile());
+        $this->addDeployCommand(new CacheClear());
     }
 }
 
