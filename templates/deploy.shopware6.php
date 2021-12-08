@@ -5,6 +5,9 @@ namespace Configuration\Deploy;
 use HipexDeployConfiguration\Command\Build\Composer;
 use HipexDeployConfiguration\Command\Command;
 use HipexDeployConfiguration\Command\DeployCommand;
+use HipexDeployConfiguration\Command\Deploy\Shopware6\AssetInstall;
+use HipexDeployConfiguration\Command\Deploy\Shopware6\ThemeCompile;
+use HipexDeployConfiguration\Command\Deploy\Shopware6\CacheClear;
 use HipexDeployConfiguration\Configuration;
 use HipexDeployConfiguration\ServerRole;
 
